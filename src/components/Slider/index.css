@@ -1,0 +1,47 @@
+.swiper_parent {
+  margin: 0 auto;
+  padding: 70px 0 90px;
+  max-width: 90%;
+  position: relative;
+}
+
+.swiper_box {
+  user-select: none;
+}
+
+.swiper_box img {
+  user-select: none;
+}
+
+.swiper_parent .swiper {
+  position: static;
+}
+
+.swiper_parent .swiper-button-prev,
+.swiper_parent .swiper-button-next {
+  position: absolute;
+  top: auto;
+  bottom: -30px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: #0eb78c35;
+}
+
+.swiper_parent .swiper-button-prev::after,
+.swiper_parent .swiper-button-next::after {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 1;
+}
+
+.swiper_parent .swiper-button-prev {
+  transform: translate(-100%, -50%);
+  left: calc(50% - 18px);
+}
+
+.swiper_parent .swiper-button-next {
+  transform: translate(100%, -50%);
+  right: calc(50% - 18px);
+}

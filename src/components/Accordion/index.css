@@ -1,0 +1,94 @@
+.faq__desc.show-description {
+  height: 6rem;
+  margin-bottom: 15px;
+}
+@media screen and (max-width: 768px) {
+  .faq__desc.show-description {
+    height: 7rem;
+    font-size: 12px;
+  }
+}
+.faq__question-button::after {
+  transition: transform 300ms ease-out;
+}
+.font-weight-bold::after {
+  transform: rotate(-45deg);
+}
+.attribution {
+  font-size: 11px;
+  text-align: center;
+  color: hsl(240, 5%, 91%);
+  padding-top: 10px;
+}
+.attribution a {
+  color: hsl(273, 75%, 66%);
+}
+.component {
+  margin: 0 auto;
+  max-width: 920px;
+  width: 100%;
+  background-color: #ffffff;
+  background-position: -565px -295px;
+  background-repeat: no-repeat;
+  box-shadow: 0px 50px 50px -20px rgba(53, 18, 122, 0.497159);
+  border-radius: 23px;
+  display: flex;
+}
+.faq__question {
+  max-width: 800px;
+  width: 100%;
+  border-bottom: 2px solid #363133;
+}
+.faq__question-button {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  border: none;
+  background-color: transparent;
+  padding: 0px;
+  cursor: pointer;
+  color: #0eb78c;
+  font-family: "Evolventa", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 133%;
+  text-align: left;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.faq__question-button:after {
+  content: url(../../assets/img/xmark.png);
+  margin-right: 17px;
+}
+.faq__desc {
+  color: #fff;
+  font-family: "Evolventa", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 133%;
+  padding-right: 17px;
+  margin-top: 0;
+  margin-bottom: 0;
+  height: 0;
+  overflow: hidden;
+  transition: all 200ms ease-out;
+}
+
+@media only screen and (max-width: 700px) {
+  .component {
+    max-width: 327px;
+    background-position: top;
+    flex-direction: column;
+  }
+  .faq__question {
+    max-width: 279px;
+  }
+  .faq__question-button {
+    width: 279px;
+    font-size: 16px;
+    line-height: 133%;
+  }
+  .faq__question-button:after {
+    padding-right: 0px;
+  }
+}

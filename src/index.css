@@ -1,0 +1,277 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #000;
+  overflow-x: hidden;
+}
+@font-face {
+  font-family: "Univermag";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Univermag"), url("./assets/fonts/univermag.woff") format("woff");
+}
+@font-face {
+  font-family: "Evolventa-Bold";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Evolvanta-Bold"),
+    url("./assets/fonts/Evolventa-Bold.ttf") format("ttf");
+}
+@font-face {
+  font-family: "Evolventa-Regular";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Evolvanta-Regular"),
+    url("./assets/fonts/Evolventa-Regular.ttf") format("ttf");
+}
+.evolventa-r {
+  font-family: "Evolventa-Regular", sans-serif;
+  font-weight: 400;
+}
+.evolventa-b {
+  font-family: "Evolventa-Bold", sans-serif;
+  font-weight: 700;
+}
+.univermag-mini {
+  font-family: "Univermag", sans-serif;
+  font-size: 14px;
+  line-height: 90%;
+}
+.univermag {
+  font-family: "Univermag", sans-serif;
+  font-size: 21px;
+  line-height: 90%;
+}
+.poppins {
+  font-family: "Poppins", sans-serif;
+}
+.bg-icons {
+  background: linear-gradient(
+    253.09deg,
+    rgba(14, 183, 140, 0.25) -7.53%,
+    rgba(14, 183, 140, 0.25) 97.04%
+  );
+  backdrop-filter: blur(25px);
+  border-radius: 30px;
+}
+.bg-slider {
+  background: linear-gradient(180deg, #151515 0%, rgba(60, 60, 60, 0) 100%);
+}
+.bg-community {
+  background: linear-gradient(
+    253.09deg,
+    rgba(217, 217, 217, 0.25) -7.53%,
+    rgba(217, 217, 217, 0) 97.04%
+  );
+  backdrop-filter: blur(25px);
+  border-bottom: 2px solid rgba(14, 183, 140, 0.25);
+  border-color: rgba(14, 183, 140, 0.25) currentcolor;
+  border-top: 2px solid rgba(14, 183, 140, 0.25);
+}
+.bg-sponsors {
+  background: linear-gradient(
+    253.09deg,
+    rgba(217, 217, 217, 0.25) -7.53%,
+    rgba(217, 217, 217, 0) 97.04%
+  );
+  backdrop-filter: blur(50px);
+  border-bottom: 2px solid rgba(255, 23, 145, 0.25);
+  border-color: rgba(255, 23, 145, 0.25);
+  border-top: 2px solid rgba(255, 23, 145, 0.25);
+  transform: rotate(-4deg);
+}
+.addr-input {
+  background: transparent;
+  border: 1px solid #0eb78c;
+  border-radius: 16px;
+  box-sizing: border-box;
+  color: #fff;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  margin: 0;
+  padding: 16px 60px;
+  text-align: center;
+  margin-right: 15px;
+}
+@media screen and (max-width: 767px) {
+  .addr-input {
+    padding: 8px 30px;
+  }
+}
+.bg-add {
+  background: linear-gradient(92.35deg, #0eb78c 2.87%, #00e9ae 100.14%);
+}
+.bg-add2 {
+  background: linear-gradient(92.35deg, #0eb78c 2.87%, #00faba 100.14%);
+  transform: matrix(-1, -0.01, -0.01, 1, 0, 0);
+}
+.addr-button {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  background: rgba(14, 183, 140, 0.2);
+  border: none;
+  border-radius: 16px;
+  color: #fff;
+  column-gap: 10px;
+  cursor: pointer;
+  display: flex;
+  font-family: Poppins, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+  padding: 16px 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+.bg-marmoset {
+  backdrop-filter: blur(50px);
+  background: linear-gradient(
+    253.09deg,
+    rgba(14, 184, 139, 0.25) -7.53%,
+    rgba(15, 184, 141, 0.25) 97.04%
+  );
+
+  border-radius: 30px;
+}
+.bg-rules_banner {
+  background: linear-gradient(90.64deg, #fcaf47 0.34%, #bc792e 99.45%);
+  border-radius: 20px;
+}
+.bg-winner {
+  background: #000000;
+  backdrop-filter: blur(25px);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  border-radius: 30px;
+}
+.bg-rules {
+  background: linear-gradient(
+    253.09deg,
+    rgba(14, 183, 140, 0.8) -7.53%,
+    rgba(0, 139, 104, 0.8) 97.04%
+  );
+  backdrop-filter: blur(25px);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+  border-radius: 30px;
+}
+.bg-search {
+  background: url(./assets/img/search.png) no-repeat 7px 45%;
+  background-color: #3b3c4e;
+}
+.button-design-null {
+  border: 1px solid #0eb78c;
+  border-radius: 8px;
+  cursor: auto;
+}
+.button-design-null p {
+  padding: 8px 12px;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.button-design-buy {
+  border: 1px solid #0eb78c;
+  border-radius: 8px;
+  background-color: #0eb78c;
+}
+.button-design-buy p {
+  padding: 8px 12px;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.button-design {
+  border: 1px solid #0eb78c;
+  border-radius: 8px;
+}
+.button-design p {
+  padding: 8px 12px;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+}
+.button-design img {
+  padding-left: 12px;
+}
+.button-modal-design {
+  border: 1px solid #0eb78c;
+  border-radius: 8px;
+}
+.button-modal-design p {
+  padding: 8px 12px;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+}
+@media screen and (max-width: 767px) {
+  .button-modal-design p {
+    font-size: 12px;
+  }
+}
+.button-modal-design img {
+  padding-left: 12px;
+}
+
+.button-design:hover {
+  background: #0eb78c;
+}
+
+.button-design-buy:hover {
+  background: normal;
+}
+
+.management-modal {
+  background: linear-gradient(
+    253.09deg,
+    rgba(14, 183, 140, 0.8) -7.53%,
+    rgba(0, 139, 104, 0.8) 97.04%
+  );
+  backdrop-filter: blur(25px);
+  transform: matrix(-1, 0, 0, 1, 0, 0);
+}
+
+.tables::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tables::-webkit-scrollbar-track {
+  background: #4d4d4d;
+}
+
+.tables::-webkit-scrollbar-thumb {
+  background-color: #0eb78c;
+  border-radius: 10px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
