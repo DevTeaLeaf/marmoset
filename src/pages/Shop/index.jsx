@@ -12,6 +12,12 @@ import { Link } from "react-router-dom";
 import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
 
+import { ethers } from "ethers";
+import { useAccount } from "@web3modal/react";
+import lotteryABI from "../../web3/abi/lottery.json";
+import tokenABI from "../../web3/abi/token.json";
+import { LOTTERY, TOKEN } from "../../web3/constants.js";
+
 const Shop = ({ t }) => {
   const [price, setPrice] = useState(1);
   //normal
@@ -22,7 +28,7 @@ const Shop = ({ t }) => {
   const [index, setIndex] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
-  const [address, setAddress] = useState("");
+  const [faddress, setAddress] = useState("");
   //dirty
   const [nameDirty, setNameDirty] = useState(false);
   const [surnameDirty, setSurnameDirty] = useState(false);
@@ -71,7 +77,7 @@ const Shop = ({ t }) => {
       case "city":
         setCityDirty(true);
         break;
-      case "address":
+      case "faddress":
         setAddressDirty(true);
         break;
     }
@@ -170,7 +176,31 @@ const Shop = ({ t }) => {
     cityError,
     addressError,
   ]);
+  ////web3
+  const { address, connectorAccount, isConnected } = useAccount();
 
+  let tokenContract;
+  let lotteryContract;
+  const [marmosetPrice, setMarmosetPrice] = useState("");
+  const [marmosetUnits, setMarmosetUnits] = useState("");
+  const getPrice = async () => {
+    let price = await lotteryContract.getPrice(ethers.utils.parseEther("99"));
+    price = parseInt(price._hex, 16);
+    if (price / 10 ** 30 > 0) {
+      setMarmosetPrice((price / 10 ** 30).toFixed(1));
+      setMarmosetUnits("trillion");
+    } else {
+      setMarmosetPrice((price / 10 ** 27).toFixed(1));
+      setMarmosetUnits("milliard");
+    }
+  };
+  if (isConnected) {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    tokenContract = new ethers.Contract(TOKEN, tokenABI, signer);
+    lotteryContract = new ethers.Contract(LOTTERY, lotteryABI, signer);
+    getPrice();
+  }
   return (
     <>
       <Header />
@@ -326,8 +356,8 @@ const Shop = ({ t }) => {
                       <input
                         onBlur={(e) => blurHandler(e)}
                         onChange={(e) => addressHandler(e)}
-                        name="address"
-                        defaultValue={address}
+                        name="faddress"
+                        defaultValue={faddress}
                         type="text"
                         className={
                           addressDirty && addressError
@@ -477,7 +507,7 @@ const Shop = ({ t }) => {
                       ...................
                     </p>
                     <p className="evolventa-b text-[16px] leading-[133%] text-[#0EB78C] md:text-[20px]">
-                      {price * 2000}
+                      {price * marmosetPrice + " " + marmosetUnits}
                     </p>
                   </div>
                   <button

@@ -12,6 +12,7 @@ import LanguagesModal from "../LanguagesModal";
 import i18n from "../../translate/i18n";
 
 import { Web3Modal, useAccount, useConnectModal } from "@web3modal/react";
+import { ScrollToTop } from "../ScrollToTop";
 
 export const Header = (props) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -30,7 +31,7 @@ export const Header = (props) => {
     <header>
       <nav className="fixed z-[1000000] w-full bg-black text-[#fff]">
         <div className="container flex justify-between items-center mx-auto xl:px-[120px] lg:px-[30px] h-[80px] lg:h-[118px] relative">
-          <Link to="/">
+          <Link onClick={ScrollToTop} to="/">
             <div className="flex items-center lg:pl-0 md:pl-[26px] pl-[16px]">
               <img
                 className="w-[36px] h-[36px] md:w-full md:h-full"
