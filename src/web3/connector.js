@@ -1,11 +1,17 @@
-import { InjectedConnector } from "@web3-react/injected-connector";
-import { WalletConnectConnector } from "@web3-react/walletconnect-connector";
-
-export const injected = new InjectedConnector({
-  supportedChainIds: [1, 3, 4, 5, 42, 56],
-});
-export const WalletConnect = new WalletConnectConnector({
-  rpcUrl: `https://mainnet.infura.io/v3/b365880147014f928d117886dcc8e428`,
-  bridge: "https://bridge.walletconnect.org",
-  qrcode: true,
-});
+export const binanceSmartChain = {
+  id: 56,
+  name: "Binance Smart Chain",
+  network: "binanceSmartChain",
+  nativeCurrency: {
+    decimals: 18,
+    name: "Binance",
+    symbol: "BNB",
+  },
+  rpcUrls: {
+    default: "https://bsc-dataseed.binance.org",
+  },
+  blockExplorers: {
+    default: { name: "BSC Scan", url: "https://bscscan.com" },
+  },
+  testnet: false,
+};

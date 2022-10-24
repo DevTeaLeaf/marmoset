@@ -8,27 +8,10 @@ import { Web3ReactProvider } from "@web3-react/core";
 import Web3 from "web3";
 import { Web3Modal } from "@web3modal/react";
 import { chains, providers } from "@web3modal/ethereum";
-
-const binanceSmartChain = {
-  id: 56,
-  name: "Binance Smart Chain",
-  network: "binanceSmartChain",
-  nativeCurrency: {
-    decimals: 18,
-    name: "Binance",
-    symbol: "BNB",
-  },
-  rpcUrls: {
-    default: "https://bsc-dataseed.binance.org",
-  },
-  blockExplorers: {
-    default: { name: "BSC Scan", url: "https://bscscan.com" },
-  },
-  testnet: false,
-};
+import { binanceSmartChain } from "./web3/connector";
 
 const config = {
-  projectId: process.env.REACT_APP_PROJECTID,
+  projectId: "7296e0dacbac58b95a24313f1e929093",
   theme: "dark",
   accentColor: "orange",
   ethereum: {
@@ -36,7 +19,7 @@ const config = {
     chains: [binanceSmartChain],
     providers: [
       providers.walletConnectProvider({
-        projectId: process.env.REACT_APP_PROJECTID,
+        projectId: "7296e0dacbac58b95a24313f1e929093",
       }),
     ],
   },

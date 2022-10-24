@@ -25,17 +25,11 @@ import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
 import { LOTTERY, TOKEN, GAS, TOKENOWNER } from "../../web3/constants.js";
 
-import { getBtcNumber } from "../../api";
-
-import { ethers } from "ethers";
-import { useAccount } from "@web3modal/react";
+import { ethers, getDefaultProvider } from "ethers";
+import { useAccount, useProvider, useSigner } from "@web3modal/react";
 import { chains, providers } from "@web3modal/ethereum";
 
 const Lottery = ({ t }) => {
-  /*setInterval(async () => {
-    console.log(await getBtcNumber());
-  }, 100000);*/
-
   const cellArr = [1, 2, 3, 4, 5, 6];
 
   const input1 = createRef();
@@ -69,6 +63,7 @@ const Lottery = ({ t }) => {
       return (e.current.value = "");
     });
   };
+
   const generateRandom = () => {
     setBuy(true);
     inputRefs.map((e) => {
@@ -80,6 +75,8 @@ const Lottery = ({ t }) => {
   const [activeTable, setActiveTable] = useState(false);
   const [played, setPlayed] = useState(false);
   const { address, connectorAccount, isConnected } = useAccount();
+  const provider = useProvider();
+  const { data, error, isLoading, refetch } = useSigner();
 
   let tokenContract;
   let lotteryContract;
@@ -103,14 +100,14 @@ const Lottery = ({ t }) => {
     setActiveTable([lotteryNumber, myChoice, myWon]);
     setPlayed(play);
   };
-  if (isConnected) {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
+  const initProvider = async (e) => {
+    //const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = data;
     tokenContract = new ethers.Contract(TOKEN, tokenABI, signer);
     lotteryContract = new ethers.Contract(LOTTERY, lotteryABI, signer);
 
     getLotteryData();
-  }
+  };
   const buyTicket = async (e) => {
     const data = inputRefs.map((e) => {
       return e.current.value;
@@ -130,6 +127,9 @@ const Lottery = ({ t }) => {
       }
     }
   };
+  if (isConnected) {
+    initProvider();
+  }
   return (
     <>
       <Header />
