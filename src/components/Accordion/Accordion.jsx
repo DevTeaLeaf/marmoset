@@ -40,6 +40,7 @@ const Accordion = ({ t }) => {
         ariaExpanded={ariaExpanded}
         item={item}
         index={index}
+        key={index}
         onClick={() => {
           setActiveIndex(index);
         }}

@@ -24,7 +24,7 @@ const Slider = () => {
       >
         {sliderData &&
           sliderData.map((el, index) => (
-            <React.Fragment>
+            <React.Fragment key={index}>
               <SwiperSlide key={index}>
                 <div className="swiper_box">
                   <img src={el} alt="nft" />

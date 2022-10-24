@@ -11,7 +11,7 @@ import { chains, providers } from "@web3modal/ethereum";
 import { binanceSmartChain } from "./web3/connector";
 
 const config = {
-  projectId: "7296e0dacbac58b95a24313f1e929093",
+  projectId: process.env.REACT_APP_PROJECTID,
   theme: "dark",
   accentColor: "orange",
   ethereum: {
@@ -19,7 +19,7 @@ const config = {
     chains: [binanceSmartChain],
     providers: [
       providers.walletConnectProvider({
-        projectId: "7296e0dacbac58b95a24313f1e929093",
+        projectId: process.env.REACT_APP_PROJECTID,
       }),
     ],
   },

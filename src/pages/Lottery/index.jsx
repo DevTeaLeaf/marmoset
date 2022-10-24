@@ -1,4 +1,4 @@
-import { useState, createRef } from "react";
+import { useState, createRef, useEffect } from "react";
 
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -24,20 +24,19 @@ import { withNamespaces } from "react-i18next";
 import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
 import { LOTTERY, TOKEN, GAS, TOKENOWNER } from "../../web3/constants.js";
+import axios from "axios";
 
-import { ethers, getDefaultProvider } from "ethers";
+import { ethers } from "ethers";
 import { useAccount, useProvider, useSigner } from "@web3modal/react";
-import { chains, providers } from "@web3modal/ethereum";
-
 const Lottery = ({ t }) => {
-  const cellArr = [1, 2, 3, 4, 5, 6];
-
   const input1 = createRef();
   const input2 = createRef();
   const input3 = createRef();
   const input4 = createRef();
   const input5 = createRef();
   const input6 = createRef();
+
+  const cellArr = [1, 2, 3, 4, 5, 6];
 
   const [buy, setBuy] = useState(false);
 
@@ -77,16 +76,17 @@ const Lottery = ({ t }) => {
   const { address, connectorAccount, isConnected } = useAccount();
   const provider = useProvider();
   const { data, error, isLoading, refetch } = useSigner();
-
-  let tokenContract;
+  let [tokenContract, setTokenContract] = useState(false);
   let lotteryContract;
 
   let lotteryNumber;
   let myChoice;
   let myWon;
+
   const getLotteryData = async () => {
     lotteryNumber = await lotteryContract.currentLotteryNumberInfo();
     lotteryNumber = parseInt(lotteryNumber._hex, 16);
+
     myChoice = await lotteryContract.showMyNumber(address, lotteryNumber);
     myChoice = myChoice.map((e) => parseInt(e._hex, 16));
 
@@ -94,22 +94,20 @@ const Lottery = ({ t }) => {
     myWon = parseInt(myWon._hex, 16);
 
     let play = await lotteryContract.showPlayed(lotteryNumber);
-
     /*let getJackpot = await lotteryContract.getJackpot();
     getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);*/
     setActiveTable([lotteryNumber, myChoice, myWon]);
     setPlayed(play);
   };
   const initProvider = async (e) => {
-    //const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = data;
-    tokenContract = new ethers.Contract(TOKEN, tokenABI, signer);
+    setTokenContract(new ethers.Contract(TOKEN, tokenABI, signer));
     lotteryContract = new ethers.Contract(LOTTERY, lotteryABI, signer);
 
     getLotteryData();
   };
   const buyTicket = async (e) => {
-    const data = inputRefs.map((e) => {
+    const inputData = inputRefs.map((e) => {
       return e.current.value;
     });
     if (buy) {
@@ -121,15 +119,27 @@ const Lottery = ({ t }) => {
             gasLimit: GAS,
           });
         }
-        await lotteryContract.buyTicket(data, { gasLimit: GAS });
+        await lotteryContract.buyTicket(inputData, { gasLimit: GAS });
       } catch (error) {
         console.log("Transaction failed with error:", error);
       }
     }
   };
-  if (isConnected) {
-    initProvider();
-  }
+  const getLotteryInfo = async () => {
+    let axi = await axios
+      .get("http://151.248.114.67:9080/lottery-engine/last-draw")
+      .then((data) => {
+        console.log(data.data);
+      });
+    return axi;
+  };
+
+  useEffect(() => {
+    if (isConnected) {
+      initProvider();
+    }
+    console.log(getLotteryInfo());
+  }, [isConnected, address, data, buy]);
   return (
     <>
       <Header />
