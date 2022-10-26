@@ -4,10 +4,13 @@ import { Link } from "react-router-dom";
 
 export const Cols = ({ data, numbers }) => {
   const [lotteryNumber, myChoice, myWon] = [...data];
-  console.log(numbers);
-  numbers = numbers.map((e) => {
-    return Number.isInteger(e) ? e : "";
-  });
+  if (numbers) {
+    numbers = numbers.map((e) => {
+      return Number.isInteger(e) ? e : "";
+    });
+  } else {
+    numbers = ["", "", "", "", "", ""];
+  }
 
   return (
     <>

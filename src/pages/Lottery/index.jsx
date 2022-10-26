@@ -77,12 +77,12 @@ const Lottery = ({ t }) => {
   const { data, error, isLoading, refetch } = useSigner();
   let [tokenContract, setTokenContract] = useState(false);
   const [lotteryInfo, setLotteryInfo] = useState([
-    "asca",
-    "shjyt",
-    "gdgda",
-    "dfgdf",
-    "sdfsda",
-    "ghjwe",
+    "asdas",
+    "ghfgh",
+    "dghdf",
+    "fgh",
+    "qwed",
+    "hegwe",
   ]);
   const [jackpot, setJackpot] = useState("");
   let lotteryContract;
@@ -150,6 +150,9 @@ const Lottery = ({ t }) => {
             }
           });
         }
+      })
+      .catch((error) => {
+        console.log(error);
       });
     if (isConnected) {
       initProvider();
@@ -226,7 +229,9 @@ const Lottery = ({ t }) => {
                     ? lotteryInfo.nums.map((e, i) => {
                         return <Cell number={e} key={i} />;
                       })
-                    : ""}
+                    : lotteryInfo.map((e) => {
+                        return <Cell nkey={e} />;
+                      })}
                 </div>
                 <div className="flex ites-center max-w-[900px] mx-auto md:ml-auto ml-[15px]">
                   <p className="mr-[6px] text-[#fff] evolventa-r text-[12px] md:text-[18px] leading-[133%]">

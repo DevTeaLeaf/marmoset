@@ -1,5 +1,5 @@
 export const InputCell = ({ number, turn, info }) => {
-  let color = Number(number) === info[turn] ? "green" : "red";
+  let color = info ? (Number(number) === info[turn] ? "green" : "red") : "";
   return (
     <>
       <div className="bg-[#3B3C4E] rounded-[8px] md:rounded-[20px] md:max-w-[125px] max-w-[49px]">
