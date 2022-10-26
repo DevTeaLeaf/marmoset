@@ -72,8 +72,8 @@ body {
     rgba(217, 217, 217, 0) 97.04%
   );
   backdrop-filter: blur(25px);
-  border-bottom: 2px solid rgba(14, 183, 140, 0.25);
-  border-top: 2px solid rgba(14, 183, 140, 0.25);
+  border-bottom: 2px solid rgba(14, 183, 140, 0.25) !important;
+  border-top: 2px solid rgba(14, 183, 140, 0.25) !important;
   border-color: rgba(14, 183, 140, 0.25);
 }
 .bg-sponsors {
