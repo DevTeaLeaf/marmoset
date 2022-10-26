@@ -230,7 +230,7 @@ const Lottery = ({ t }) => {
                         return <Cell number={e} key={i} />;
                       })
                     : lotteryInfo.map((e) => {
-                        return <Cell nkey={e} />;
+                        return <Cell key={e} />;
                       })}
                 </div>
                 <div className="flex ites-center max-w-[900px] mx-auto md:ml-auto ml-[15px]">
