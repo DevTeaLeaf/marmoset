@@ -76,7 +76,14 @@ const Lottery = ({ t }) => {
   const { address, connectorAccount, isConnected } = useAccount();
   const { data, error, isLoading, refetch } = useSigner();
   let [tokenContract, setTokenContract] = useState(false);
-  const [lotteryInfo, setLotteryInfo] = useState([]);
+  const [lotteryInfo, setLotteryInfo] = useState([
+    "asca",
+    "shjyt",
+    "gdgda",
+    "dfgdf",
+    "sdfsda",
+    "ghjwe",
+  ]);
   const [jackpot, setJackpot] = useState("");
   let lotteryContract;
 

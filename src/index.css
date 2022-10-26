@@ -73,7 +73,7 @@ body {
   );
   backdrop-filter: blur(25px);
   border-bottom: 2px solid rgba(14, 183, 140, 0.25);
-  border-color: rgba(14, 183, 140, 0.25) currentcolor;
+  border-color: rgba(14, 183, 140, 0.25);
   border-top: 2px solid rgba(14, 183, 140, 0.25);
 }
 .bg-sponsors {
