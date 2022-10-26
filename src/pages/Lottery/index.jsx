@@ -93,7 +93,6 @@ const Lottery = ({ t }) => {
 
     myWon = await lotteryContract.showMyWon(lotteryNumber);
     myWon = parseInt(myWon._hex, 16);
-    console.log(myWon);
 
     let play = await lotteryContract.showPlayed(lotteryNumber);
 
@@ -132,14 +131,22 @@ const Lottery = ({ t }) => {
   };
 
   useEffect(() => {
-    if (isConnected) {
-      initProvider();
-    }
     axios
       .get("http://151.248.114.67:9080/lottery-engine/last-draw")
       .then((data) => {
         setLotteryInfo(data.data);
+        if (data.data.receivedNums < 6) {
+          let keysArr = ["a", "b", "c", "d", "e", "f"];
+          keysArr.forEach((e) => {
+            if (data.data.nums.length < 6) {
+              data.data.nums.push(e);
+            }
+          });
+        }
       });
+    if (isConnected) {
+      initProvider();
+    }
   }, [isConnected, address, data, buy]);
   return (
     <>

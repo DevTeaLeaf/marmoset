@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 export const Cols = ({ data, numbers }) => {
   const [lotteryNumber, myChoice, myWon] = [...data];
 
+  numbers = numbers.map((e) => {
+    return Number.isInteger(e) ? e : "";
+  });
+
   return (
     <>
       <div className="inline-block md:block">
