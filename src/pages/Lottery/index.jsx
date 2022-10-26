@@ -139,7 +139,7 @@ const Lottery = ({ t }) => {
 
   useEffect(() => {
     axios
-      .get("http://151.248.114.67:9080/lottery-engine/last-draw")
+      .get("https://marmosettoken.com:9080/lottery-engine/last-draw")
       .then((data) => {
         setLotteryInfo(data.data);
         if (data.data.receivedNums < 6) {
