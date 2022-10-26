@@ -2,9 +2,8 @@ import star from "../../assets/img/star.png";
 import { Shelf } from "./Shelf";
 import { Link } from "react-router-dom";
 
-export const Cols = ({ data }) => {
+export const Cols = ({ data, numbers }) => {
   const [lotteryNumber, myChoice, myWon] = [...data];
-  const numbers = [1, 7, 3, 0, 5, 2];
 
   return (
     <>

@@ -2,7 +2,7 @@ export const Cell = ({ number, color }) => {
   return (
     <>
       <div className="bg-[#3B3C4E] rounded-[8px] md:rounded-[20px] md:max-w-[125px] max-w-[49px]">
-        {number ? (
+        {number || number === 0 ? (
           <div
             className={
               color === "red"
