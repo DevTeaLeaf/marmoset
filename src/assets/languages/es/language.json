@@ -129,5 +129,19 @@
   "management_lottery_p": "Con la ayuda de los tokens MMT, puede comprar un boleto cada semana y participar en la lotería JACKPOT, el precio del boleto es de $10 (a la tasa del token MMT), cada compra de boleto se agrega (envía) al grupo general de JACKPOT.",
   "supply_form": "Rellene el campo",
   "supply_phone": "Numero de telefono invalido",
-  "supply_email": "Email incorrecto"
+  "supply_email": "Email incorrecto",
+  "wednesday": "Miércoles",
+  "january": "enero",
+  "february": "Febrero",
+  "march": "marzo",
+  "april": "abril",
+  "may": "mayo",
+  "june": "junio",
+  "july": "Julio",
+  "august": "Agosto",
+  "september": "septiembre",
+  "october": "octubre",
+  "november": "Noviembre",
+  "december": "Diciembre",
+  "moscow": "11:00 hora de Moscú (07:00 GMT)"
 }

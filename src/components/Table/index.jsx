@@ -1,4 +1,4 @@
-import { Cols } from "./Cols";
+import Cols from "./Cols";
 
 export const Table = ({ data, numbers }) => {
   return (

@@ -129,5 +129,19 @@
   "management_lottery_p": "Cu ajutorul jetoanelor MMT, puteți achiziționa un bilet în fiecare săptămână și puteți participa la loteria JACKPOT, prețul biletului este de 10 USD (la rata jetonului MMT), fiecare achiziție de bilet este adăugată (trimisă) la pool-ul general de JACKPOT.",
   "supply_form": "Completați câmpul",
   "supply_phone": "Numar de telefon invalid",
-  "supply_email": "Email incorect"
+  "supply_email": "Email incorect",
+  "wednesday": "Miercuri",
+  "january": "ianuarie",
+  "february": "februarie",
+  "march": "martie",
+  "april": "aprilie",
+  "may": "mai",
+  "june": "iunie",
+  "july": "iulie",
+  "august": "august",
+  "september": "septembrie",
+  "october": "octombrie",
+  "november": "noiembrie",
+  "december": "decembrie",
+  "moscow": "11:00 ora Moscovei (07:00 GMT)"
 }

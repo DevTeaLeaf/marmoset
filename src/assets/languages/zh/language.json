@@ -129,5 +129,19 @@
   "management_lottery_p": "借助 MMT 代幣，您可以每週購買一張彩票並參與 JACKPOT 抽獎，票價為 10 美元（按 MMT 代幣價格），每張彩票購買（發送）到一般 JACKPOT 池中。",
   "supply_form": "填寫字段",
   "supply_phone": "無效的電話號碼",
-  "supply_email": "不正確的電子郵件"
+  "supply_email": "不正確的電子郵件",
+  "wednesday": "週三",
+  "january": "一月",
+  "february": "二月",
+  "march": "行進",
+  "april": "四月",
+  "may": "可能",
+  "june": "六月",
+  "july": "七月",
+  "august": "八月",
+  "september": "九月",
+  "october": "十月",
+  "november": "十一月",
+  "december": "十二月",
+  "moscow": "莫斯科時間 11:00（格林威治標準時間 07:00）"
 }

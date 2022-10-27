@@ -2,7 +2,10 @@ import star from "../../assets/img/star.png";
 import { Shelf } from "./Shelf";
 import { Link } from "react-router-dom";
 
-export const Cols = ({ data, numbers }) => {
+import i18n from "../../translate/i18n";
+import { withNamespaces } from "react-i18next";
+
+const Cols = ({ t, data, numbers }) => {
   const [lotteryNumber, myChoice, myWon] = [...data];
   if (numbers) {
     numbers = numbers.map((e) => {
@@ -17,7 +20,7 @@ export const Cols = ({ data, numbers }) => {
       <div className="inline-block md:block">
         <div className="bg-[#0EB78C] flex items-center justify-between py-[9px] px-[13px] w-auto ">
           <h3 className="text-[#fff] poppins font-bold text-[12px] md:text-[14px] lg:text-[16px] leading-6">
-            Среда, 21 мая, 11:00 по Москве (07:00 GMT)
+            {`${t("wednesday")}, 21 ${t("may")}, ${t("moscow")}`}
           </h3>
           <div className=" rounded-xl bg-[#3B3C4E]">
             <Link
@@ -91,3 +94,4 @@ export const Cols = ({ data, numbers }) => {
     </>
   );
 };
+export default withNamespaces()(Cols);

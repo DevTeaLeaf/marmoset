@@ -129,5 +129,19 @@
   "management_lottery_p": "Mit Hilfe von MMT-Token können Sie jede Woche ein Ticket kaufen und an der JACKPOT-Lotterie teilnehmen, der Ticketpreis beträgt 10 $ (zum MMT-Token-Kurs), jeder Ticketkauf wird dem allgemeinen JACKPOT-Pool hinzugefügt (gesendet).",
   "supply_form": "Füllen Sie das Feld aus",
   "supply_phone": "Ungültige Telefonnummer",
-  "supply_email": "Falsche Email"
+  "supply_email": "Falsche Email",
+  "wednesday": "Mittwoch",
+  "january": "Januar",
+  "february": "Februar",
+  "march": "März",
+  "april": "April",
+  "may": "kann",
+  "june": "Juni",
+  "july": "Juli",
+  "august": "August",
+  "september": "September",
+  "october": "Oktober",
+  "november": "November",
+  "december": "Dezember",
+  "moscow": "11:00 Uhr Moskauer Zeit (07:00 GMT)"
 }
