@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { useState, useEffect, createRef } from "react";
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -19,6 +20,7 @@ import tokenABI from "../../web3/abi/token.json";
 import { LOTTERY, TOKEN } from "../../web3/constants.js";
 
 const Shop = ({ t }) => {
+  const button = createRef();
   const [price, setPrice] = useState(1);
   //normal
   const [name, setName] = useState("");
@@ -192,6 +194,14 @@ const Shop = ({ t }) => {
     } else {
       setMarmosetPrice((price / 10 ** 27).toFixed(1));
       setMarmosetUnits("milliard");
+    }
+  };
+  const buyToy = async (e) => {
+    try {
+      let buyToy = await lotteryContract.buyToy(price);
+      button.current.focus();
+    } catch (error) {
+      console.log(error);
     }
   };
   if (isConnected) {
@@ -512,11 +522,16 @@ const Shop = ({ t }) => {
                   </div>
                   <button
                     disabled={!formValid}
-                    type="submit"
+                    //type="submit"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      buyToy();
+                    }}
                     className="mt-[15px] md:mt-[50px] flex items-center justify-center px-[87.5px] py-[13.5px] bg-[#FF1791] disabled:opacity-50 rounded-[55px] max-w-[229px]"
                   >
                     {t("counter_buy")}
                   </button>
+                  <button ref={button} type="submit"></button>
                 </div>
               </div>
             </form>

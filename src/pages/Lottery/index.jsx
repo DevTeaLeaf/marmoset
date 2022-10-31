@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, createRef, useEffect } from "react";
 
 import { Header } from "../../components/Header";
@@ -70,6 +71,32 @@ const Lottery = ({ t }) => {
       return (e.current.value = Math.floor(rand));
     });
   };
+  function timeConverter(unix) {
+    let a = new Date(unix * 1000);
+    let months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    let year = a.getFullYear();
+    let month = months[a.getMonth()];
+    let date = a.getDate();
+    let hour = a.getHours();
+    let min = a.getMinutes();
+    let sec = a.getSeconds();
+    let time =
+      date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
+    return time;
+  }
   ////web3
   const [activeTable, setActiveTable] = useState(false);
   const [played, setPlayed] = useState(false);
@@ -105,6 +132,17 @@ const Lottery = ({ t }) => {
 
     let getJackpot = await lotteryContract.getJackpot();
     getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
+
+    let nextNumber = await lotteryContract.getNextNumberTimer();
+    //nextNumber = nextNumber.map((e) => timeConverter(parseInt(e._hex, 16)));
+    nextNumber = nextNumber.map((e) => new Date(parseInt(e._hex, 16) * 1000));
+    console.log(nextNumber);
+
+    let now = Date.now();
+    now = new Date(now);
+    //now = timeConverter(now);
+    console.log(now + "lolll" + nextNumber[0]);
+    console.log(now < nextNumber[0]);
 
     setJackpot(getJackpot);
     setActiveTable([lotteryNumber, myChoice, myWon]);
