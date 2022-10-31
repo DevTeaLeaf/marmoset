@@ -40,6 +40,10 @@ const Lottery = ({ t }) => {
   const cellArr = [1, 2, 3, 4, 5, 6];
 
   const [buy, setBuy] = useState(false);
+  const [time, setTime] = useState(false);
+  const [now, setNow] = useState(false);
+  const [firstDate, setFirstDate] = useState(false);
+  const [inDayTime, setInDayTime] = useState(false);
 
   const inputRefs = [input1, input2, input3, input4, input5, input6];
   const validateInputs = () => {
@@ -50,7 +54,7 @@ const Lottery = ({ t }) => {
         counter++;
       }
     });
-    if (counter == 6) {
+    if (counter == 6 && now < firstDate) {
       setBuy(true);
     }
   };
@@ -65,38 +69,27 @@ const Lottery = ({ t }) => {
   };
 
   const generateRandom = () => {
-    setBuy(true);
+    if (now < firstDate) {
+      setBuy(true);
+    }
     inputRefs.map((e) => {
       let rand = 0 + Math.random() * (9 + 1 - 0);
       return (e.current.value = Math.floor(rand));
     });
   };
-  function timeConverter(unix) {
-    let a = new Date(unix * 1000);
-    let months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let hour = a.getHours();
-    let min = a.getMinutes();
-    let sec = a.getSeconds();
-    let time =
-      date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
-    return time;
-  }
+  const timeDiff = (oldDate, newDate) => {
+    const diffHours = Math.ceil((new Date(oldDate) - new Date(newDate)) / 36e5);
+    const days = Math.floor(diffHours / 24);
+    const hours = diffHours - days * 24;
+    return [days, hours];
+  };
+  const inDayTimeDiff = (oldDate, newDate) => {
+    const diff = Math.floor((new Date(oldDate) - new Date(newDate)) / 1000);
+    const hours = (diff / 3600) ^ 0;
+    const minutes = ((diff - hours * 3600) / 60) ^ 0;
+    const seconds = diff - hours * 3600 - minutes * 60;
+    return [minutes, seconds];
+  };
   ////web3
   const [activeTable, setActiveTable] = useState(false);
   const [played, setPlayed] = useState(false);
@@ -134,15 +127,38 @@ const Lottery = ({ t }) => {
     getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
 
     let nextNumber = await lotteryContract.getNextNumberTimer();
-    //nextNumber = nextNumber.map((e) => timeConverter(parseInt(e._hex, 16)));
-    nextNumber = nextNumber.map((e) => new Date(parseInt(e._hex, 16) * 1000));
-    console.log(nextNumber);
+    nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
 
-    let now = Date.now();
-    now = new Date(now);
-    //now = timeConverter(now);
-    console.log(now + "lolll" + nextNumber[0]);
-    console.log(now < nextNumber[0]);
+    setFirstDate(nextNumber[0]);
+    setNow(Date.now());
+
+    if (now < nextNumber[0]) {
+      setBuy(true);
+      setTime(timeDiff(nextNumber[0], now));
+    } else {
+      setBuy(false);
+      if (now > nextNumber[0] && now < nextNumber[1]) {
+        setInterval(() => {
+          setInDayTime(inDayTimeDiff(nextNumber[1], now));
+        }, 1000);
+      } else if (now > nextNumber[1] && now < nextNumber[2]) {
+        setInterval(() => {
+          setInDayTime(inDayTimeDiff(nextNumber[2], now));
+        }, 1000);
+      } else if (now > nextNumber[2] && now < nextNumber[3]) {
+        setInterval(() => {
+          setInDayTime(inDayTimeDiff(nextNumber[3], now));
+        }, 1000);
+      } else if (now > nextNumber[3] && now < nextNumber[4]) {
+        setInterval(() => {
+          setInDayTime(inDayTimeDiff(nextNumber[4], now));
+        }, 1000);
+      } else if (now > nextNumber[4] && now < nextNumber[5]) {
+        setInterval(() => {
+          setInDayTime(inDayTimeDiff(nextNumber[5], now));
+        }, 1000);
+      }
+    }
 
     setJackpot(getJackpot);
     setActiveTable([lotteryNumber, myChoice, myWon]);
@@ -188,6 +204,7 @@ const Lottery = ({ t }) => {
             }
           });
         }
+        console.log(data.data.completed);
       })
       .catch((error) => {
         console.log(error);
@@ -276,7 +293,11 @@ const Lottery = ({ t }) => {
                     {t("lottery_next_numbers")}
                   </p>
                   <p className="text-[#0EB78C] evolventa-b text-[14px] md:text-[18px] leading-[133%]">
-                    1:43
+                    {time
+                      ? `${time[0]} days ${time[1]} hours`
+                      : inDayTime
+                      ? `${inDayTime[0]}:${inDayTime[1]}`
+                      : ""}
                   </p>
                 </div>
               </div>

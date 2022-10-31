@@ -259,8 +259,8 @@ const Shop = ({ t }) => {
           </div>
           <div className="text-[#FFFFFF] evolventa-b text-[18px] flex items-center xl:items-start xl:flex-row flex-col">
             <form
-              action="send.php"
-              method="post"
+              /*action="send.php"
+              method="post"*/
               className="flex xl:flex-row flex-col items-center xl:items-start"
             >
               <div className="flex md:flex-row flex-col items-center">
