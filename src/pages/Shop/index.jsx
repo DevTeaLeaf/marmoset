@@ -199,7 +199,7 @@ const Shop = ({ t }) => {
   const buyToy = async (e) => {
     try {
       let buyToy = await lotteryContract.buyToy(price);
-      button.current.focus();
+      //тут должна быть функция отправки почты
     } catch (error) {
       console.log(error);
     }
