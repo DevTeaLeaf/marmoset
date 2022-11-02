@@ -177,14 +177,16 @@ const Lottery = ({ t }) => {
     });
     if (buy) {
       try {
-        let allowance = await tokenContract.allowance(TOKENOWNER, address);
+        const needToPay = await lotteryContract.getPrice(11000000000000000000n);
+
+        let allowance = await tokenContract.allowance(address, LOTTERY);
         allowance = parseInt(allowance._hex, 16);
-        if (allowance < ethers.constants.MaxUint256) {
+        if (allowance < needToPay) {
           await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
             gasLimit: GAS,
           });
         }
-        let buyT = await lotteryContract.buyTicket(inputData, {
+        await lotteryContract.buyTicket(inputData, {
           gasLimit: GAS,
         });
       } catch (error) {

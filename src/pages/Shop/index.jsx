@@ -94,10 +94,10 @@ const Shop = ({ t }) => {
       console.log(buyToy);
       emailjs
         .sendForm(
-          "service_8gep5hu",
-          "template_1dehjbb",
+          "service_y9l9u6i",
+          "template_1dehjbb", //тут отредактировать
           form.current,
-          "gyMM2KvvzjT-2n7LI"
+          "OI8ROhTcVEziLZ1-6"
         )
         .then(
           (result) => {
