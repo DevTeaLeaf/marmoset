@@ -225,7 +225,6 @@ const Lottery = ({ t }) => {
             }
           });
         }
-        console.log(data.data.completed);
       })
       .catch((error) => {
         console.log(error);
