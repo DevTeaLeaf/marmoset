@@ -177,6 +177,7 @@ const Lottery = ({ t }) => {
     });
     if (buy) {
       try {
+        //
         const needToPay = await lotteryContract.getPrice(11000000000000000000n);
 
         let allowance = await tokenContract.allowance(address, LOTTERY);
