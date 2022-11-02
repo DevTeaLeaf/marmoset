@@ -162,7 +162,7 @@ const Lottery = ({ t }) => {
 
     setJackpot(getJackpot);
     setActiveTable([lotteryNumber, myChoice, myWon]);
-    //setPlayed(play);
+    setPlayed(play);
   };
   const initProvider = async (e) => {
     const signer = data;
