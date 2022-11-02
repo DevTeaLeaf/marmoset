@@ -105,7 +105,7 @@ const Lottery = ({ t }) => {
     "hegwe",
   ]);
   const [jackpot, setJackpot] = useState("");
-  let lotteryContract;
+  const [lotteryContract, setLotteryContract] = useState(false);
 
   let lotteryNumber;
   let myChoice;
@@ -162,12 +162,12 @@ const Lottery = ({ t }) => {
 
     setJackpot(getJackpot);
     setActiveTable([lotteryNumber, myChoice, myWon]);
-    setPlayed(play);
+    //setPlayed(play);
   };
   const initProvider = async (e) => {
     const signer = data;
     setTokenContract(new ethers.Contract(TOKEN, tokenABI, signer));
-    lotteryContract = new ethers.Contract(LOTTERY, lotteryABI, signer);
+    setLotteryContract(new ethers.Contract(LOTTERY, lotteryABI, signer));
 
     getLotteryData();
   };
@@ -179,11 +179,9 @@ const Lottery = ({ t }) => {
       try {
         const needToPay = await lotteryContract.getPrice(11000000000000000000n);
 
-        console.log(needToPay);
-
         let allowance = await tokenContract.allowance(TOKENOWNER, address);
         allowance = parseInt(allowance._hex, 16);
-        console.log(allowance);
+
         if (allowance < needToPay) {
           await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
             gasLimit: GAS,
@@ -235,7 +233,7 @@ const Lottery = ({ t }) => {
     if (isConnected) {
       initProvider();
     }
-  }, [isConnected, address, data, buy]);
+  }, [isConnected, address, data, buy, lotteryContract]);
   return (
     <>
       <Header />
