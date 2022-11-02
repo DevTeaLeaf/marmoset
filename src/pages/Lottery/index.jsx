@@ -126,13 +126,13 @@ const Lottery = ({ t }) => {
     let getJackpot = await lotteryContract.getJackpot();
     getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
 
-    let nextNumber = await lotteryContract.getNextNumberTimer();
-    nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
+    //let nextNumber = await lotteryContract.getNextNumberTimer();
+    //nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
 
-    setFirstDate(nextNumber[0]);
-    setNow(Date.now());
-
-    if (now < nextNumber[0]) {
+    //setFirstDate(nextNumber[0]);
+    //setNow(Date.now());
+    setBuy(true);
+    /*if (now < nextNumber[0]) {
       setBuy(true);
       setTime(timeDiff(nextNumber[0], now));
     } else {
@@ -158,7 +158,7 @@ const Lottery = ({ t }) => {
           setInDayTime(inDayTimeDiff(nextNumber[5], now));
         }, 1000);
       }
-    }
+    }*/
 
     setJackpot(getJackpot);
     setActiveTable([lotteryNumber, myChoice, myWon]);

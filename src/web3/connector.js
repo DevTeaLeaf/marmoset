@@ -1,4 +1,4 @@
-/*export const binanceSmartChain = {
+export const binanceSmartChain = {
   id: 56,
   name: "Binance Smart Chain",
   network: "binanceSmartChain",
@@ -14,8 +14,8 @@
     default: { name: "BSC Scan", url: "https://bscscan.com" },
   },
   testnet: true,
-};*/
-export const binanceSmartChain = {
+};
+/*export const binanceSmartChain = {
   id: 97,
   name: "Binance Smart Chain",
   network: "binanceSmartChain",
@@ -31,4 +31,4 @@ export const binanceSmartChain = {
     default: { name: "BSC Scan", url: "https://testnet.bscscan.com/" },
   },
   testnet: true,
-};
+};*/

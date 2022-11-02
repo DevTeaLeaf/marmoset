@@ -90,8 +90,8 @@ const Shop = ({ t }) => {
   const sendEmail = async (e) => {
     e.preventDefault();
     try {
-      //let buyToy = await lotteryContract.buyToy(price);
-      //console.log(buyToy);
+      let buyToy = await lotteryContract.buyToy(price);
+      console.log(buyToy);
       emailjs
         .sendForm(
           "service_8gep5hu",
