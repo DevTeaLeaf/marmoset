@@ -184,6 +184,8 @@ const Lottery = ({ t }) => {
 
         console.log("allowance", allowance);
         console.log("needToPay", needToPay);
+        console.log("Пользователь: ", address);
+        console.log("Контракт: ", LOTTERY);
 
         if (allowance < needToPay) {
           await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
