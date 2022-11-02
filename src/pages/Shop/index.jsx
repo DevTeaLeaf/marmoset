@@ -1,5 +1,5 @@
-import React from "react";
-import { useState, useEffect, createRef } from "react";
+import React, { useRef } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 
@@ -19,9 +19,11 @@ import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
 import { LOTTERY, TOKEN } from "../../web3/constants.js";
 
+import emailjs from "@emailjs/browser";
+
 const Shop = ({ t }) => {
-  const button = createRef();
   const [price, setPrice] = useState(1);
+  const form = useRef();
   //normal
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
@@ -82,6 +84,31 @@ const Shop = ({ t }) => {
       case "faddress":
         setAddressDirty(true);
         break;
+    }
+  };
+
+  const sendEmail = async (e) => {
+    e.preventDefault();
+    try {
+      //let buyToy = await lotteryContract.buyToy(price);
+      //console.log(buyToy);
+      emailjs
+        .sendForm(
+          "service_8gep5hu",
+          "template_1dehjbb",
+          form.current,
+          "gyMM2KvvzjT-2n7LI"
+        )
+        .then(
+          (result) => {
+            console.log(result.text);
+          },
+          (error) => {
+            console.log(error.text);
+          }
+        );
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -188,20 +215,13 @@ const Shop = ({ t }) => {
   const getPrice = async () => {
     let price = await lotteryContract.getPrice(ethers.utils.parseEther("99"));
     price = parseInt(price._hex, 16);
+    console.log(price);
     if (price / 10 ** 30 > 0) {
       setMarmosetPrice((price / 10 ** 30).toFixed(1));
       setMarmosetUnits("trillion");
     } else {
       setMarmosetPrice((price / 10 ** 27).toFixed(1));
       setMarmosetUnits("milliard");
-    }
-  };
-  const buyToy = async (e) => {
-    try {
-      let buyToy = await lotteryContract.buyToy(price);
-      //тут должна быть функция отправки почты
-    } catch (error) {
-      console.log(error);
     }
   };
   if (isConnected) {
@@ -259,8 +279,8 @@ const Shop = ({ t }) => {
           </div>
           <div className="text-[#FFFFFF] evolventa-b text-[18px] flex items-center xl:items-start xl:flex-row flex-col">
             <form
-              /*action="send.php"
-              method="post"*/
+              ref={form}
+              onSubmit={sendEmail}
               className="flex xl:flex-row flex-col items-center xl:items-start"
             >
               <div className="flex md:flex-row flex-col items-center">
@@ -522,16 +542,11 @@ const Shop = ({ t }) => {
                   </div>
                   <button
                     disabled={!formValid}
-                    //type="submit"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      buyToy();
-                    }}
+                    type="submit"
                     className="mt-[15px] md:mt-[50px] flex items-center justify-center px-[87.5px] py-[13.5px] bg-[#FF1791] disabled:opacity-50 rounded-[55px] max-w-[229px]"
                   >
                     {t("counter_buy")}
                   </button>
-                  <button ref={button} type="submit"></button>
                 </div>
               </div>
             </form>
