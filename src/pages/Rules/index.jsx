@@ -1,3 +1,4 @@
+import React from "react";
 import arrow from "../../assets/img/arrow-back.png";
 import { Link } from "react-router-dom";
 

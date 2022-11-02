@@ -1,3 +1,4 @@
+import React from "react";
 import star from "../../assets/img/star.png";
 import { Shelf } from "./Shelf";
 import { Link } from "react-router-dom";

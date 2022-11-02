@@ -3,7 +3,7 @@ import Footer from "../../components/Footer";
 import Accordion from "../../components/Accordion/Accordion";
 import Copy from "../../components/Copy";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import React from "react";
 
 import telegram2 from "../../assets/img/telegram2.png";
 import twitter from "../../assets/img/twitter.png";

@@ -1,3 +1,4 @@
+import React from "react";
 import Copy from "../Copy";
 
 import i18n from "../../translate/i18n";

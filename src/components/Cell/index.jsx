@@ -1,3 +1,4 @@
+import React from "react";
 export const Cell = ({ number, color }) => {
   return (
     <>

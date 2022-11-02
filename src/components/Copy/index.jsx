@@ -1,3 +1,4 @@
+import React from "react";
 import copy from "../../assets/img/copy.png";
 
 import i18n from "../../translate/i18n";

@@ -1,3 +1,4 @@
+import React from "react";
 import closeModal from "../../assets/img/close_modal.png";
 import { useNavigate } from "react-router-dom";
 

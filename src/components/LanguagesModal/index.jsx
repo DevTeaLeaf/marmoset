@@ -1,3 +1,4 @@
+import React from "react";
 import en from "../../assets/img/flags/en.png";
 import es from "../../assets/img/flags/es.png";
 import de from "../../assets/img/flags/de.png";

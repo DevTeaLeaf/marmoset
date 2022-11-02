@@ -177,7 +177,22 @@ const Lottery = ({ t }) => {
     });
     if (buy) {
       try {
-        //
+        let allowance = await tokenContract.allowance(TOKENOWNER, address);
+        allowance = parseInt(allowance._hex, 16);
+        console.log(allowance);
+        if (allowance < ethers.constants.MaxUint256) {
+          await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
+            gasLimit: GAS,
+          });
+        }
+        console.log(lotteryContract);
+        await lotteryContract.buyTicket(data, { gasLimit: GAS });
+      } catch (error) {
+        console.log("Transaction failed with error:", error);
+      }
+    }
+    /*if (buy) {
+      try {
         const needToPay = await lotteryContract.getPrice(11000000000000000000n);
 
         let allowance = await tokenContract.allowance(address, LOTTERY);
@@ -193,7 +208,7 @@ const Lottery = ({ t }) => {
       } catch (error) {
         console.log("Transaction failed with error:", error);
       }
-    }
+    }*/
   };
 
   useEffect(() => {

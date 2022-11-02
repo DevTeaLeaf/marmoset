@@ -1,3 +1,4 @@
+import React from "react";
 import Cols from "./Cols";
 
 export const Table = ({ data, numbers }) => {

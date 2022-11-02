@@ -90,12 +90,12 @@ const Shop = ({ t }) => {
   const sendEmail = async (e) => {
     e.preventDefault();
     try {
-      let buyToy = await lotteryContract.buyToy(price);
-      console.log(buyToy);
+      //let buyToy = await lotteryContract.buyToy(price);
+      //console.log(buyToy);
       emailjs
         .sendForm(
           "service_y9l9u6i",
-          "template_1dehjbb", //тут отредактировать
+          "template_ncadvhn",
           form.current,
           "OI8ROhTcVEziLZ1-6"
         )
