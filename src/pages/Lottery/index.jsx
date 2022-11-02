@@ -184,7 +184,9 @@ const Lottery = ({ t }) => {
             gasLimit: GAS,
           });
         }
-        await lotteryContract.buyTicket(inputData, { gasLimit: GAS });
+        let buyT = await lotteryContract.buyTicket(inputData, {
+          gasLimit: GAS,
+        });
       } catch (error) {
         console.log("Transaction failed with error:", error);
       }
