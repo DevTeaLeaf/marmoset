@@ -57,6 +57,7 @@ const Lottery = ({ t }) => {
     if (counter == 6 && now < firstDate) {
       setBuy(true);
     }
+    console.log(counter);
   };
   const none = () => {
     return;
@@ -78,10 +79,14 @@ const Lottery = ({ t }) => {
     });
   };
   const timeDiff = (oldDate, newDate) => {
-    const diffHours = Math.ceil((new Date(oldDate) - new Date(newDate)) / 36e5);
-    const days = Math.floor(diffHours / 24);
-    const hours = diffHours - days * 24;
-    return [days, hours];
+    let diff = Math.floor((new Date(oldDate) - new Date(newDate)) / 1000);
+    const days = Math.floor(diff / 86400);
+    diff -= days * 86400;
+    const hours = Math.floor(diff / 3600) % 24;
+    diff -= hours * 3600;
+    const minutes = Math.floor(diff / 60) % 60;
+
+    return [days, hours, minutes];
   };
   const inDayTimeDiff = (oldDate, newDate) => {
     const diff = Math.floor((new Date(oldDate) - new Date(newDate)) / 1000);
@@ -137,8 +142,11 @@ const Lottery = ({ t }) => {
 
     setFirstDate(nextNumber[0]);
     setNow(Date.now());
+
     if (now < nextNumber[0]) {
-      setBuy(true);
+      if (buy) {
+        setBuy(true);
+      }
       setTime(timeDiff(nextNumber[0], now));
     } else {
       setBuy(false);
@@ -303,7 +311,7 @@ const Lottery = ({ t }) => {
                   </p>
                   <p className="text-[#0EB78C] evolventa-b text-[14px] md:text-[18px] leading-[133%]">
                     {time
-                      ? `${time[0]} days ${time[1]} hours`
+                      ? `${time[0]} days ${time[1]} hours ${time[2]} minutes`
                       : inDayTime
                       ? `${inDayTime[0]}:${inDayTime[1]}`
                       : ""}
