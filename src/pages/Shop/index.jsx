@@ -90,9 +90,7 @@ const Shop = ({ t }) => {
   const sendEmail = async (e) => {
     e.preventDefault();
     try {
-      const needToPay = await lotteryContract.getPrice(11000000000000000000n);
-
-      console.log(lotteryContract);
+      const needToPay = await lotteryContract.getPrice(99000000000000000000n);
 
       let allowance = await tokenContract.allowance(address, LOTTERY);
       allowance = parseInt(allowance._hex, 16);
@@ -102,11 +100,15 @@ const Shop = ({ t }) => {
           gasLimit: GAS,
         });
       }
-      console.log(lotteryContract);
+      console.log(price);
       let buyToy = await lotteryContract.buyToy(price, {
         gasLimit: GAS,
       });
-      console.log(buyToy);
+
+      lotteryContract.on("boughtToy", (from, to, amount) => {
+        console.log(from, to, amount);
+      });
+
       emailjs
         .sendForm(
           "service_y9l9u6i",
