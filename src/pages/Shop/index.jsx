@@ -103,7 +103,9 @@ const Shop = ({ t }) => {
         });
       }
       console.log(lotteryContract);
-      let buyToy = await lotteryContract.buyToy(price);
+      let buyToy = await lotteryContract.buyToy(price, {
+        gasLimit: GAS,
+      });
       console.log(buyToy);
       emailjs
         .sendForm(
