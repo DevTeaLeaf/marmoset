@@ -21,7 +21,8 @@ const Cols = ({ t, data, numbers }) => {
       <div className="inline-block md:block">
         <div className="bg-[#0EB78C] flex items-center justify-between py-[9px] px-[13px] w-auto ">
           <h3 className="text-[#fff] poppins font-bold text-[12px] md:text-[14px] lg:text-[16px] leading-6">
-            {`${t("wednesday")}, 9 ${t("november")}, ${t("moscow")}`}
+            {`${t("wednesday")},  ${t("moscow")}`}
+            {/*9 ${t("november")},*/}
           </h3>
           <div className=" rounded-xl bg-[#3B3C4E]">
             <Link

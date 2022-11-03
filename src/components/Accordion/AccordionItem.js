@@ -29,7 +29,7 @@ export const AccordionItem = ({
         {item.answer}
         {item.link ? (
           <a className="text-[#0eb78c]" href={item.link}>
-            {item.link}
+            https://defimoon.org/
           </a>
         ) : (
           ""
