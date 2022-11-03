@@ -21,7 +21,7 @@ const Accordion = ({ t }) => {
     {
       question: t("faq_question3"),
       answer: t("faq_answer3"),
-      link: `https://defimoon.org/`,
+      link: `https://github.com/Defimoonorg/Audit-Report/blob/main/Marmosettoken.pdf`,
     },
     {
       question: t("faq_question4"),
