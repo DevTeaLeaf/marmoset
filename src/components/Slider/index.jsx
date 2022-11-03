@@ -5,13 +5,15 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "./index.css";
-import nft1 from "../../assets/img/nft2.png";
-import nft2 from "../../assets/img/nft3.png";
-import nft3 from "../../assets/img/nft4.png";
-import nft4 from "../../assets/img/nft5.png";
+import slider1 from "../../assets/img/slider1.png";
+import slider2 from "../../assets/img/slider2.png";
+import slider3 from "../../assets/img/slider3.png";
+import slider4 from "../../assets/img/slider4.png";
+import slider5 from "../../assets/img/slider5.png";
+import slider6 from "../../assets/img/slider6.png";
 
 const Slider = () => {
-  let sliderData = [nft1, nft2, nft3, nft4, nft1, nft2];
+  let sliderData = [slider1, slider2, slider3, slider4, slider5, slider6];
   const screenWidth = window.innerWidth > 767 ? 4 : 2;
   return (
     <div className="swiper_parent">
@@ -27,7 +29,7 @@ const Slider = () => {
             <React.Fragment key={index}>
               <SwiperSlide key={index}>
                 <div className="swiper_box">
-                  <img src={el} alt="nft" />
+                  <img className="rounded-[14px]" src={el} alt="nft" />
                 </div>
               </SwiperSlide>
             </React.Fragment>

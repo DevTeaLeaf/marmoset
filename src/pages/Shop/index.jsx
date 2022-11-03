@@ -561,7 +561,7 @@ const Shop = ({ t }) => {
                     </p>
                   </div>
                   <button
-                    /*disabled={!formValid}*/
+                    disabled={!formValid}
                     type="submit"
                     className="mt-[15px] md:mt-[50px] flex items-center justify-center px-[87.5px] py-[13.5px] bg-[#FF1791] disabled:opacity-50 rounded-[55px] max-w-[229px]"
                   >
