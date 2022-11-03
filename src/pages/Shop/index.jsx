@@ -89,6 +89,10 @@ const Shop = ({ t }) => {
 
   const sendEmail = async (e) => {
     e.preventDefault();
+
+    let balance = await tokenContract.balanceOf(address);
+    balance = parseInt(balance._hex, 16) / 10 ** 18;
+
     try {
       const needToPay = await lotteryContract.getPrice(99000000000000000000n);
 
@@ -100,30 +104,29 @@ const Shop = ({ t }) => {
           gasLimit: GAS,
         });
       }
-      console.log(price);
-      let buyToy = await lotteryContract.buyToy(price, {
-        gasLimit: GAS,
-      });
+      if (balance >= needToPay) {
+        let buyToy = await lotteryContract.buyToy(price, {
+          gasLimit: GAS,
+        });
 
-      lotteryContract.on("boughtToy", (from, to, amount) => {
-        console.log(from, to, amount);
-      });
-
-      emailjs
-        .sendForm(
-          "service_y9l9u6i",
-          "template_ncadvhn",
-          form.current,
-          "OI8ROhTcVEziLZ1-6"
-        )
-        .then(
-          (result) => {
-            console.log(result.text);
-          },
-          (error) => {
-            console.log(error.text);
-          }
-        );
+        emailjs
+          .sendForm(
+            "service_y9l9u6i",
+            "template_ncadvhn",
+            form.current,
+            "OI8ROhTcVEziLZ1-6"
+          )
+          .then(
+            (result) => {
+              console.log(result.text);
+            },
+            (error) => {
+              console.log(error.text);
+            }
+          );
+      } else {
+        alert("Not enough MMT");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -558,7 +561,7 @@ const Shop = ({ t }) => {
                     </p>
                   </div>
                   <button
-                    disabled={!formValid}
+                    /*disabled={!formValid}*/
                     type="submit"
                     className="mt-[15px] md:mt-[50px] flex items-center justify-center px-[87.5px] py-[13.5px] bg-[#FF1791] disabled:opacity-50 rounded-[55px] max-w-[229px]"
                   >
