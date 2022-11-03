@@ -17,7 +17,7 @@ import { ethers } from "ethers";
 import { useAccount } from "@web3modal/react";
 import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
-import { LOTTERY, TOKEN } from "../../web3/constants.js";
+import { LOTTERY, TOKEN, GAS } from "../../web3/constants.js";
 
 import emailjs from "@emailjs/browser";
 
@@ -90,8 +90,17 @@ const Shop = ({ t }) => {
   const sendEmail = async (e) => {
     e.preventDefault();
     try {
-      //let buyToy = await lotteryContract.buyToy(price);
-      //console.log(buyToy);
+      const needToPay = await lotteryContract.getPrice(11000000000000000000n);
+      console.log(lotteryContract);
+      let allowance = await tokenContract.allowance(address, LOTTERY);
+      allowance = parseInt(allowance._hex, 16);
+
+      if (allowance < needToPay) {
+        await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
+          gasLimit: GAS,
+        });
+      }
+      let buyToy = await lotteryContract.buyToy(price);
       emailjs
         .sendForm(
           "service_y9l9u6i",

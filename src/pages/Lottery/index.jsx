@@ -25,7 +25,7 @@ import { withNamespaces } from "react-i18next";
 
 import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
-import { LOTTERY, TOKEN, GAS, TOKENOWNER } from "../../web3/constants.js";
+import { LOTTERY, TOKEN, GAS } from "../../web3/constants.js";
 
 import { ethers } from "ethers";
 import { useAccount, useSigner } from "@web3modal/react";
@@ -126,13 +126,18 @@ const Lottery = ({ t }) => {
     let getJackpot = await lotteryContract.getJackpot();
     getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
 
-    //let nextNumber = await lotteryContract.getNextNumberTimer();
-    //nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
+    //let lotteryDate = await lotteryContract.showLotteryDate(lotteryNumber);
+    //lotteryDate = parseInt((lotteryDate._hex, 16) * 1000);
+    //let lotteryDate = 1667426400000;
+    //lotteryDate = String(new Date(lotteryDate)).split(" ");
+    //console.log(lotteryDate);
 
-    //setFirstDate(nextNumber[0]);
-    //setNow(Date.now());
-    setBuy(true);
-    /*if (now < nextNumber[0]) {
+    let nextNumber = await lotteryContract.getNextNumberTimer();
+    nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
+
+    setFirstDate(nextNumber[0]);
+    setNow(Date.now());
+    if (now < nextNumber[0]) {
       setBuy(true);
       setTime(timeDiff(nextNumber[0], now));
     } else {
@@ -157,8 +162,9 @@ const Lottery = ({ t }) => {
         setInterval(() => {
           setInDayTime(inDayTimeDiff(nextNumber[5], now));
         }, 1000);
+        setLotteryContract;
       }
-    }*/
+    }
 
     setJackpot(getJackpot);
     setActiveTable([lotteryNumber, myChoice, myWon]);
@@ -166,8 +172,8 @@ const Lottery = ({ t }) => {
   };
   const initProvider = async (e) => {
     const signer = data;
-    setTokenContract(new ethers.Contract(TOKEN, tokenABI, signer));
     setLotteryContract(new ethers.Contract(LOTTERY, lotteryABI, signer));
+    setTokenContract(new ethers.Contract(TOKEN, tokenABI, signer));
 
     getLotteryData();
   };
@@ -182,39 +188,17 @@ const Lottery = ({ t }) => {
         let allowance = await tokenContract.allowance(address, LOTTERY);
         allowance = parseInt(allowance._hex, 16);
 
-        console.log("allowance", allowance);
-        console.log("needToPay", needToPay);
-        console.log("Пользователь: ", address);
-        console.log("Контракт: ", LOTTERY);
-
         if (allowance < needToPay) {
           await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
             gasLimit: GAS,
           });
         }
+
         await lotteryContract.buyTicket(inputData, { gasLimit: GAS });
       } catch (error) {
         console.log("Transaction failed with error:", error);
       }
     }
-    /*if (buy) {
-      try {
-        const needToPay = await lotteryContract.getPrice(11000000000000000000n);
-
-        let allowance = await tokenContract.allowance(address, LOTTERY);
-        allowance = parseInt(allowance._hex, 16);
-        if (allowance < needToPay) {
-          await tokenContract.approve(LOTTERY, ethers.constants.MaxUint256, {
-            gasLimit: GAS,
-          });
-        }
-        await lotteryContract.buyTicket(inputData, {
-          gasLimit: GAS,
-        });
-      } catch (error) {
-        console.log("Transaction failed with error:", error);
-      }
-    }*/
   };
 
   useEffect(() => {
