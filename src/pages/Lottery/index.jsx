@@ -111,6 +111,7 @@ const Lottery = ({ t }) => {
   ]);
   const [jackpot, setJackpot] = useState("");
   const [lotteryContract, setLotteryContract] = useState(false);
+  const [number, setNumber] = useState(false);
 
   let lotteryNumber;
   let myChoice;
@@ -119,6 +120,7 @@ const Lottery = ({ t }) => {
   const getLotteryData = async () => {
     lotteryNumber = await lotteryContract.currentLotteryNumberInfo();
     lotteryNumber = parseInt(lotteryNumber._hex, 16);
+    setNumber(lotteryNumber);
 
     myChoice = await lotteryContract.showMyNumber(address, lotteryNumber);
     myChoice = myChoice.map((e) => parseInt(e._hex, 16));
@@ -424,8 +426,10 @@ const Lottery = ({ t }) => {
                   </Link>
                 </div>
               </div>
-              {played ? (
+              {played && number != 1 ? (
                 <Table data={activeTable} numbers={lotteryInfo.nums} />
+              ) : played ? (
+                <p className="text-[#0EB78C] evolventa-b mx-[auto] text-center text-[20px] md:text-[64px] leading-[133%] px-[19px] md:px-[45px]"></p>
               ) : (
                 <p className="text-[#0EB78C] evolventa-b mx-[auto] text-center text-[20px] md:text-[64px] leading-[133%] px-[19px] md:px-[45px]">
                   Please buy first ticket!
