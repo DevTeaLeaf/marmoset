@@ -57,16 +57,15 @@ const Lottery = ({ t }) => {
     if (counter == 6 && now < firstDate) {
       setBuy(true);
     }
-    console.log(counter);
   };
   const none = () => {
     return;
   };
   const reset = () => {
-    setBuy(false);
     inputRefs.map((e) => {
       return (e.current.value = "");
     });
+    setBuy(false);
   };
 
   const generateRandom = () => {
@@ -146,9 +145,6 @@ const Lottery = ({ t }) => {
     setNow(Date.now());
 
     if (now < nextNumber[0]) {
-      if (buy) {
-        setBuy(true);
-      }
       setTime(timeDiff(nextNumber[0], now));
     } else {
       setBuy(false);
@@ -376,7 +372,7 @@ const Lottery = ({ t }) => {
                       }
                       className="bg-[#FF1791] rounded-[8px] block md:hidden"
                     >
-                      <p className="poppins font-bold text-[16px] leading-6 py-[8.5px] px-[21.5px] text-[#fff]">
+                      <p className="poppins font-bold text-[generateRandom16px] leading-6 py-[8.5px] px-[21.5px] text-[#fff]">
                         {t("lettery_reset")}
                       </p>
                     </button>
