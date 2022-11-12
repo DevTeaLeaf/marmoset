@@ -300,6 +300,9 @@ const Home = ({ t }) => {
           className="absolute top-[-100px] right-[-70px] rotate-[-90deg] hidden md:block"
         />
         <div className="max-w-[1440px] mx-auto ">
+          <h1 className=" md:my-[35px] evolventa-b text-[16px]  md:text-[40px] text-[#0EB78C] md:text-left text-center flex items-center justify-center">
+            Total Supply: 555,000,000,000,000 MMT (BSC)
+          </h1>
           <div className="xl:px-[120px] lg:px-[30px] flex items-center justify-center">
             <img
               src={tokenomic}

@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
 import { LOTTERY, TOKEN } from "../../web3/constants.js";
-import { getSpaceUntilMaxLength } from "@testing-library/user-event/dist/utils";
 
 export const Winners = () => {
   const [addr, setAddr] = useState([]);
@@ -49,7 +48,7 @@ export const Winners = () => {
     top20 = await lotteryContract.getTop20();
     addresses = top20[0].slice();
     sums = top20[1].map((e) => parseInt(e._hex, 16));
-    bubbleSort(sums, addresses);
+    bubbleSort(sums.slice(0, 20), addresses.slice(0, 20));
   };
   useEffect(() => {
     if (isConnected) {

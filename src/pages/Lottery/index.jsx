@@ -44,6 +44,7 @@ const Lottery = ({ t }) => {
   const [now, setNow] = useState(false);
   const [firstDate, setFirstDate] = useState(false);
   const [inDayTime, setInDayTime] = useState(false);
+  const [isBackendData, setBackendData] = useState(false);
 
   const inputRefs = [input1, input2, input3, input4, input5, input6];
   const validateInputs = () => {
@@ -110,75 +111,120 @@ const Lottery = ({ t }) => {
   ]);
   const [jackpot, setJackpot] = useState("");
   const [lotteryContract, setLotteryContract] = useState(false);
-  const [number, setNumber] = useState(false);
+  const [currentChoice, setCurrentChoice] = useState(false);
 
   let lotteryNumber;
   let myChoice;
   let myWon;
 
   const getLotteryData = async () => {
-    lotteryNumber = await lotteryContract.currentLotteryNumberInfo();
-    lotteryNumber = parseInt(lotteryNumber._hex, 16);
-    setNumber(lotteryNumber);
+    if (lotteryContract) {
+      lotteryNumber = await lotteryContract.currentLotteryNumberInfo();
+      lotteryNumber = parseInt(lotteryNumber._hex, 16);
 
-    myChoice = await lotteryContract.showMyNumber(address, lotteryNumber);
-    myChoice = myChoice.map((e) => parseInt(e._hex, 16));
+      myChoice = await lotteryContract.showMyNumber(address, lotteryNumber);
+      myChoice = myChoice.map((e) => parseInt(e._hex, 16));
 
-    myWon = await lotteryContract.showMyWon(lotteryNumber);
-    myWon = parseInt(myWon._hex, 16);
+      myWon = await lotteryContract.showMyWon(lotteryNumber);
+      myWon = parseInt(myWon._hex, 16);
 
-    let play = await lotteryContract.showPlayed(lotteryNumber);
+      let getJackpot;
+      try {
+        getJackpot = await lotteryContract.getJackpot();
+        getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
+      } catch (error) {
+        console.log(error);
+        getJackpot = 0;
+      }
 
-    let getJackpot = await lotteryContract.getJackpot();
-    getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
+      let play = await lotteryContract.showPlayed(lotteryNumber);
 
-    //let lotteryDate = await lotteryContract.showLotteryDate(lotteryNumber);
-    //lotteryDate = parseInt((lotteryDate._hex, 16) * 1000);
-    //let lotteryDate = 1667426400000;
-    //lotteryDate = String(new Date(lotteryDate)).split(" ");
-    //console.log(lotteryDate);
+      let nextNumber = await lotteryContract.getNextNumberTimer();
+      nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
 
-    let nextNumber = await lotteryContract.getNextNumberTimer();
-    nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
+      setFirstDate(nextNumber[1]);
+      setNow(Date.now());
 
-    setFirstDate(nextNumber[0]);
-    setNow(Date.now());
+      if (now < firstDate) {
+        setTime(timeDiff(firstDate, now));
+      } else {
+        setBuy(false);
+        if (now > firstDate && now < nextNumber[2]) {
+          getBackendData();
+          setInterval(() => {
+            setInDayTime(inDayTimeDiff(nextNumber[2], now));
+          }, 1000);
+        } else if (now > nextNumber[2] && now < nextNumber[3]) {
+          getBackendData();
+          setInterval(() => {
+            setInDayTime(inDayTimeDiff(nextNumber[3], now));
+          }, 1000);
+        } else if (now > nextNumber[3] && now < nextNumber[4]) {
+          getBackendData();
+          setInterval(() => {
+            setInDayTime(inDayTimeDiff(nextNumber[4], now));
+          }, 1000);
+        } else if (now > nextNumber[4] && now < nextNumber[5]) {
+          getBackendData();
+          setInterval(() => {
+            setInDayTime(inDayTimeDiff(nextNumber[5], now));
+          }, 1000);
+        } else if (now > nextNumber[5] && now < nextNumber[6]) {
+          getBackendData();
+          setInterval(() => {
+            setInDayTime(inDayTimeDiff(nextNumber[6], now));
+          }, 1000);
+        }
+      }
 
-    if (now < nextNumber[0]) {
-      setTime(timeDiff(nextNumber[0], now));
-    } else {
-      setBuy(false);
-      if (now > nextNumber[0] && now < nextNumber[1]) {
-        setInterval(() => {
-          setInDayTime(inDayTimeDiff(nextNumber[1], now));
-        }, 1000);
-      } else if (now > nextNumber[1] && now < nextNumber[2]) {
-        setInterval(() => {
-          setInDayTime(inDayTimeDiff(nextNumber[2], now));
-        }, 1000);
-      } else if (now > nextNumber[2] && now < nextNumber[3]) {
-        setInterval(() => {
-          setInDayTime(inDayTimeDiff(nextNumber[3], now));
-        }, 1000);
-      } else if (now > nextNumber[3] && now < nextNumber[4]) {
-        setInterval(() => {
-          setInDayTime(inDayTimeDiff(nextNumber[4], now));
-        }, 1000);
-      } else if (now > nextNumber[4] && now < nextNumber[5]) {
-        setInterval(() => {
-          setInDayTime(inDayTimeDiff(nextNumber[5], now));
-        }, 1000);
-        setLotteryContract;
+      setJackpot(getJackpot);
+      setCurrentChoice(myChoice);
+      setPlayed(play);
+      getAllLotteryData();
+    }
+  };
+
+  const getAllLotteryData = async () => {
+    let genArr = [];
+
+    for (let i = 1; i < 7; i++) {
+      //showPlayed
+      let played = await lotteryContract.showPlayed(lotteryNumber - i);
+      if (played) {
+        //date
+        let lotteryDate = await lotteryContract.showLotteryDate(
+          lotteryNumber - i
+        );
+        lotteryDate = new Date(parseInt(lotteryDate._hex, 16) * 1000);
+        lotteryDate = String(lotteryDate).split(" ");
+
+        let date = [lotteryDate[2], lotteryDate[1].toLowerCase()];
+
+        //myWin
+        let myWon = await lotteryContract.showMyWon(lotteryNumber - i);
+        myWon = parseInt(myWon._hex, 16);
+        //wonNumbers
+        let wonNumbers = await lotteryContract.showWonNumber(lotteryNumber - i);
+        wonNumbers = wonNumbers.map((e) => parseInt(e._hex, 16));
+
+        //myNumbers
+        let myNumbers = await lotteryContract.showMyNumber(
+          address,
+          lotteryNumber - i
+        );
+        myNumbers = myNumbers.map((e) => parseInt(e._hex, 16));
+
+        genArr.push([date, myWon, wonNumbers, myNumbers]);
       }
     }
-
-    setJackpot(getJackpot);
-    setActiveTable([lotteryNumber, myChoice, myWon]);
-    setPlayed(play);
+    setActiveTable(genArr);
   };
+
   const initProvider = async (e) => {
     const signer = data;
+
     setLotteryContract(new ethers.Contract(LOTTERY, lotteryABI, signer));
+
     setTokenContract(new ethers.Contract(TOKEN, tokenABI, signer));
 
     getLotteryData();
@@ -189,7 +235,8 @@ const Lottery = ({ t }) => {
     });
     if (buy) {
       try {
-        const needToPay = await lotteryContract.getPrice(11000000000000000000n);
+        let needToPay = await lotteryContract.getPrice(11000000000000000000n);
+        needToPay = parseInt(needToPay._hex, 16);
 
         let allowance = await tokenContract.allowance(address, LOTTERY);
         allowance = parseInt(allowance._hex, 16);
@@ -206,28 +253,38 @@ const Lottery = ({ t }) => {
       }
     }
   };
-
-  useEffect(() => {
-    axios
+  const getBackendData = async () => {
+    await axios
       .get("https://marmosettoken.com:9080/lottery-engine/last-draw")
       .then((data) => {
-        setLotteryInfo(data.data);
-        if (data.data.receivedNums < 6) {
-          let keysArr = ["a", "b", "c", "d", "e", "f"];
-          keysArr.forEach((e) => {
-            if (data.data.nums.length < 6) {
-              data.data.nums.push(e);
-            }
-          });
+        setBackendData(true);
+        if (data.data != "") {
+          setLotteryInfo(data.data);
+          if (data.data.receivedNums < 6) {
+            let keysArr = ["a", "b", "c", "d", "e", "f"];
+            keysArr.forEach((e) => {
+              if (data.data.nums.length < 6) {
+                data.data.nums.push(e);
+              }
+            });
+          }
         }
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+  useEffect(() => {
+    if (!isBackendData) {
+      getBackendData();
+    }
+  }, []);
+
+  useEffect(() => {
     if (isConnected) {
       initProvider();
     }
-  }, [isConnected, address, data, buy, lotteryContract]);
+  }, [isConnected, address, data, played, lotteryContract, activeTable]);
   return (
     <>
       <Header />
@@ -322,7 +379,7 @@ const Lottery = ({ t }) => {
                 </p>
                 <div className="flex items-center justify-between max-w-[900px] mx-[15px] mb-[45px] md:mx-auto">
                   {isConnected && played
-                    ? activeTable[1].map((e, i) => {
+                    ? currentChoice.map((e, i) => {
                         return (
                           <InputCell
                             info={lotteryInfo.nums}
@@ -422,10 +479,9 @@ const Lottery = ({ t }) => {
                   </Link>
                 </div>
               </div>
-              {played && number != 1 ? (
-                <Table data={activeTable} numbers={lotteryInfo.nums} />
-              ) : played ? (
-                <p className="text-[#0EB78C] evolventa-b mx-[auto] text-center text-[20px] md:text-[64px] leading-[133%] px-[19px] md:px-[45px]"></p>
+
+              {played ? (
+                <Table data={activeTable} />
               ) : (
                 <p className="text-[#0EB78C] evolventa-b mx-[auto] text-center text-[20px] md:text-[64px] leading-[133%] px-[19px] md:px-[45px]">
                   Please buy first ticket!

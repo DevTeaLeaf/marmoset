@@ -94,7 +94,8 @@ const Shop = ({ t }) => {
     balance = parseInt(balance._hex, 16) / 10 ** 18;
 
     try {
-      const needToPay = await lotteryContract.getPrice(99000000000000000000n);
+      let needToPay = await lotteryContract.getPrice(99000000000000000000n);
+      needToPay = parseInt(needToPay._hex, 16) / 10 ** 18;
 
       let allowance = await tokenContract.allowance(address, LOTTERY);
       allowance = parseInt(allowance._hex, 16);
