@@ -147,6 +147,9 @@ const Lottery = ({ t }) => {
 
       if (now < firstDate) {
         setTime(timeDiff(firstDate, now));
+        /*setInterval(() => {
+          setTime(timeDiff(firstDate, now));
+        }, 1000);*/
       } else {
         setBuy(false);
         if (now > firstDate && now < nextNumber[2]) {
@@ -247,7 +250,11 @@ const Lottery = ({ t }) => {
           });
         }
 
-        await lotteryContract.buyTicket(inputData, { gasLimit: GAS });
+        let buyTicket = await lotteryContract.buyTicket(inputData, {
+          gasLimit: GAS,
+        });
+        console.log(buyTicket);
+        setBuy(false);
       } catch (error) {
         console.log("Transaction failed with error:", error);
       }
@@ -284,7 +291,7 @@ const Lottery = ({ t }) => {
     if (isConnected) {
       initProvider();
     }
-  }, [isConnected, address, data, played, lotteryContract, activeTable]);
+  }, [isConnected, address, data, played, lotteryContract, activeTable, time]);
   return (
     <>
       <Header />
@@ -479,14 +486,7 @@ const Lottery = ({ t }) => {
                   </Link>
                 </div>
               </div>
-
-              {played ? (
-                <Table data={activeTable} />
-              ) : (
-                <p className="text-[#0EB78C] evolventa-b mx-[auto] text-center text-[20px] md:text-[64px] leading-[133%] px-[19px] md:px-[45px]">
-                  Please buy first ticket!
-                </p>
-              )}
+              <Table data={activeTable} />
               <img
                 src={scratches}
                 alt="scratches"

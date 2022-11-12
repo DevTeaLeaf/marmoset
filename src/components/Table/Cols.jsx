@@ -8,13 +8,6 @@ import { withNamespaces } from "react-i18next";
 
 const Cols = ({ t, data }) => {
   let [lotteryTime, myWon, wonNumbers, myNumbers] = [...data];
-  /*if (myNumbers) {
-    myNumbers = myNumbers.map((e) => {
-      return Number.isInteger(e) ? e : "";
-    });
-  } else {
-    myNumbers = ["", "", "", "", "", ""];
-  }*/
 
   return (
     <>
