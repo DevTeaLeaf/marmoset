@@ -133,7 +133,6 @@ const Lottery = ({ t }) => {
         getJackpot = await lotteryContract.getJackpot();
         getJackpot = (parseInt(getJackpot._hex, 16) / 10 ** 18).toFixed(2);
       } catch (error) {
-        console.log(error);
         getJackpot = 0;
       }
 
@@ -141,11 +140,11 @@ const Lottery = ({ t }) => {
 
       let nextNumber = await lotteryContract.getNextNumberTimer();
       nextNumber = nextNumber.map((e) => parseInt(e._hex, 16) * 1000);
-
       setFirstDate(nextNumber[1]);
+
       setNow(Date.now());
 
-      if (now < firstDate) {
+      if (now < firstDate || now > nextNumber[7]) {
         setTime(timeDiff(firstDate, now));
         /*setInterval(() => {
           setTime(timeDiff(firstDate, now));
@@ -179,7 +178,6 @@ const Lottery = ({ t }) => {
           }, 1000);
         }
       }
-
       setJackpot(getJackpot);
       setCurrentChoice(myChoice);
       setPlayed(play);
@@ -191,36 +189,40 @@ const Lottery = ({ t }) => {
     let genArr = [];
 
     for (let i = 1; i < 7; i++) {
-      //showPlayed
-      let played = await lotteryContract.showPlayed(lotteryNumber - i);
-      if (played) {
-        //date
-        let lotteryDate = await lotteryContract.showLotteryDate(
-          lotteryNumber - i
-        );
-        lotteryDate = new Date(parseInt(lotteryDate._hex, 16) * 1000);
-        lotteryDate = String(lotteryDate).split(" ");
+      if (lotteryNumber - i >= 1) {
+        //showPlayed
+        let played = await lotteryContract.showPlayed(lotteryNumber - i);
+        if (played) {
+          //date
+          let lotteryDate = await lotteryContract.showLotteryDate(
+            lotteryNumber - i
+          );
+          lotteryDate = new Date(parseInt(lotteryDate._hex, 16) * 1000);
+          lotteryDate = String(lotteryDate).split(" ");
 
-        let date = [lotteryDate[2], lotteryDate[1].toLowerCase()];
+          let date = [lotteryDate[2], lotteryDate[1].toLowerCase()];
 
-        //myWin
-        let myWon = await lotteryContract.showMyWon(lotteryNumber - i);
-        myWon = parseInt(myWon._hex, 16);
-        //wonNumbers
-        let wonNumbers = await lotteryContract.showWonNumber(lotteryNumber - i);
-        wonNumbers = wonNumbers.map((e) => parseInt(e._hex, 16));
+          //myWin
+          let myWon = await lotteryContract.showMyWon(lotteryNumber - i);
+          myWon = parseInt(myWon._hex, 16);
+          //wonNumbers
+          let wonNumbers = await lotteryContract.showWonNumber(
+            lotteryNumber - i
+          );
+          wonNumbers = wonNumbers.map((e) => parseInt(e._hex, 16));
 
-        //myNumbers
-        let myNumbers = await lotteryContract.showMyNumber(
-          address,
-          lotteryNumber - i
-        );
-        myNumbers = myNumbers.map((e) => parseInt(e._hex, 16));
+          //myNumbers
+          let myNumbers = await lotteryContract.showMyNumber(
+            address,
+            lotteryNumber - i
+          );
+          myNumbers = myNumbers.map((e) => parseInt(e._hex, 16));
 
-        genArr.push([date, myWon, wonNumbers, myNumbers]);
+          genArr.push([date, myWon, wonNumbers, myNumbers]);
+        }
+        setActiveTable(genArr);
       }
     }
-    setActiveTable(genArr);
   };
 
   const initProvider = async (e) => {
@@ -253,7 +255,6 @@ const Lottery = ({ t }) => {
         let buyTicket = await lotteryContract.buyTicket(inputData, {
           gasLimit: GAS,
         });
-        console.log(buyTicket);
         setBuy(false);
       } catch (error) {
         console.log("Transaction failed with error:", error);
@@ -265,7 +266,7 @@ const Lottery = ({ t }) => {
       .get("https://marmosettoken.com:9080/lottery-engine/last-draw")
       .then((data) => {
         setBackendData(true);
-        if (data.data != "") {
+        if (data.data != "" && !data.data.completed) {
           setLotteryInfo(data.data);
           if (data.data.receivedNums < 6) {
             let keysArr = ["a", "b", "c", "d", "e", "f"];
