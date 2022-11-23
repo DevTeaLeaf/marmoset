@@ -97,6 +97,7 @@ const Lottery = ({ t }) => {
   };
   ////web3
   const [activeTable, setActiveTable] = useState(false);
+  const [tableLen, setTableLen] = useState(0);
   const [played, setPlayed] = useState(false);
   const { address, connectorAccount, isConnected } = useAccount();
   const { data, error, isLoading, refetch } = useSigner();
@@ -220,7 +221,10 @@ const Lottery = ({ t }) => {
 
           genArr.push([date, myWon, wonNumbers, myNumbers]);
         }
-        setActiveTable(genArr);
+        if (genArr.length > tableLen) {
+          setActiveTable(genArr);
+          setTableLen(genArr.length);
+        }
       }
     }
   };
