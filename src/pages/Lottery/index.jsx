@@ -147,9 +147,6 @@ const Lottery = ({ t }) => {
 
       if (now < firstDate) {
         setTime(timeDiff(firstDate, now));
-        /*setInterval(() => {
-          setTime(timeDiff(firstDate, now));
-        }, 1000);*/
       } else if (now > nextNumber[7]) {
         setBuy(true);
       } else {
