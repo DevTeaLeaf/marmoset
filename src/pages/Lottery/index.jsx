@@ -145,11 +145,13 @@ const Lottery = ({ t }) => {
 
       setNow(Date.now());
 
-      if (now < firstDate || now > nextNumber[7]) {
+      if (now < firstDate) {
         setTime(timeDiff(firstDate, now));
         /*setInterval(() => {
           setTime(timeDiff(firstDate, now));
         }, 1000);*/
+      } else if (now > nextNumber[7]) {
+        setBuy(true);
       } else {
         setBuy(false);
         if (now > firstDate && now < nextNumber[2]) {
