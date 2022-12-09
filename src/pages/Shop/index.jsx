@@ -105,6 +105,7 @@ const Shop = ({ t }) => {
           gasLimit: GAS,
         });
       }
+
       if (balance >= needToPay) {
         let buyToy = await lotteryContract.buyToy(price, {
           gasLimit: GAS,
@@ -112,10 +113,10 @@ const Shop = ({ t }) => {
 
         emailjs
           .sendForm(
-            "service_y9l9u6i",
-            "template_ncadvhn",
+            process.env.EMAILJS_SERVICE,
+            process.env.EMAILJS_TEMPLATE,
             form.current,
-            "OI8ROhTcVEziLZ1-6"
+            process.env.EMAILJS_CODE
           )
           .then(
             (result) => {
@@ -227,12 +228,13 @@ const Shop = ({ t }) => {
     addressError,
   ]);
   ////web3
-  const { address, connectorAccount, isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
 
   let tokenContract;
   let lotteryContract;
   const [marmosetPrice, setMarmosetPrice] = useState("");
   const [marmosetUnits, setMarmosetUnits] = useState("");
+
   const getPrice = async () => {
     let price = await lotteryContract.getPrice(ethers.utils.parseEther("99"));
     price = parseInt(price._hex, 16);
@@ -252,6 +254,7 @@ const Shop = ({ t }) => {
     lotteryContract = new ethers.Contract(LOTTERY, lotteryABI, signer);
     getPrice();
   }
+
   return (
     <>
       <Header />

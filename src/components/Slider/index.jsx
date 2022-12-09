@@ -1,10 +1,12 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar, Navigation } from "swiper";
+
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "./index.css";
+
 import slider1 from "../../assets/img/slider/1.png";
 import slider2 from "../../assets/img/slider/2.png";
 import slider3 from "../../assets/img/slider/3.png";
@@ -59,6 +61,7 @@ import slider51 from "../../assets/img/slider/51.png";
 import slider52 from "../../assets/img/slider/52.png";
 import slider53 from "../../assets/img/slider/53.png";
 import slider54 from "../../assets/img/slider/54.png";
+
 const Slider = () => {
   let sliderData = [
     slider1,

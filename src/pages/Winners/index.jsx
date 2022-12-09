@@ -8,12 +8,12 @@ import { useAccount, useSigner } from "@web3modal/react";
 import { useState, useEffect } from "react";
 
 import lotteryABI from "../../web3/abi/lottery.json";
-import tokenABI from "../../web3/abi/token.json";
-import { LOTTERY, TOKEN } from "../../web3/constants.js";
+import { LOTTERY } from "../../web3/constants.js";
 
 export const Winners = () => {
   const [addr, setAddr] = useState([]);
   const [sum, setSum] = useState([]);
+
   const bubbleSort = (prices, names) => {
     let temp = {};
     for (var i = 0; i < names.length; i++) {
@@ -35,14 +35,14 @@ export const Winners = () => {
 
   const { address, connectorAccount, isConnected } = useAccount();
   const { data, error, isLoading, refetch } = useSigner();
-  let [tokenContract, setTokenContract] = useState(false);
+
   let lotteryContract;
   let top20;
   let sums;
   let addresses;
+
   const initProvider = async (e) => {
     const signer = data;
-    setTokenContract(new ethers.Contract(TOKEN, tokenABI, signer));
     lotteryContract = new ethers.Contract(LOTTERY, lotteryABI, signer);
 
     top20 = await lotteryContract.getTop20();

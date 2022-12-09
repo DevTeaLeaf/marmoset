@@ -59,9 +59,6 @@ const Lottery = ({ t }) => {
       setBuy(true);
     }
   };
-  const none = () => {
-    return;
-  };
   const reset = () => {
     inputRefs.map((e) => {
       return (e.current.value = "");
@@ -419,10 +416,10 @@ const Lottery = ({ t }) => {
                     <button
                       onClick={
                         isConnected && played
-                          ? none
+                          ? null
                           : isConnected
                           ? buyTicket
-                          : none
+                          : null
                       }
                       className={`${
                         buy ? "button-design-buy" : "button-design-null"
@@ -433,10 +430,10 @@ const Lottery = ({ t }) => {
                     <button
                       onClick={
                         isConnected && played
-                          ? none
+                          ? null
                           : isConnected
                           ? reset
-                          : none
+                          : null
                       }
                       className="bg-[#FF1791] rounded-[8px] block md:hidden"
                     >
@@ -448,10 +445,10 @@ const Lottery = ({ t }) => {
                   <button
                     onClick={
                       isConnected && played
-                        ? none
+                        ? null
                         : isConnected
                         ? generateRandom
-                        : none
+                        : null
                     }
                     className="button-design"
                   >
@@ -459,7 +456,7 @@ const Lottery = ({ t }) => {
                   </button>
                   <button
                     onClick={
-                      isConnected && played ? none : isConnected ? reset : none
+                      isConnected && played ? null : isConnected ? reset : null
                     }
                     className="bg-[#FF1791] rounded-[8px] hidden md:block"
                   >

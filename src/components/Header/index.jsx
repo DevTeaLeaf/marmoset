@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import LanguagesModal from "../LanguagesModal";
 import i18n from "../../translate/i18n";
 
-import { Web3Modal, useAccount, useConnectModal } from "@web3modal/react";
+import { useAccount, useConnectModal } from "@web3modal/react";
 import { ScrollToTop } from "../ScrollToTop";
 
 export const Header = (props) => {
