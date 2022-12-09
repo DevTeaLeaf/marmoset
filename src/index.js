@@ -7,7 +7,7 @@ import App from "./App";
 import { Web3ReactProvider } from "@web3-react/core";
 import Web3 from "web3";
 import { Web3Modal } from "@web3modal/react";
-import { CONFIG } from "./web3/constants";
+import { CONFIG } from "./web3/constants.js";
 
 const getLibrary = (provider) => {
   return new Web3(provider);
