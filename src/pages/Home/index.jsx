@@ -5,40 +5,39 @@ import Copy from "../../components/Copy";
 import { Link } from "react-router-dom";
 import React from "react";
 
-import telegram2 from "../../assets/img/telegram2.png";
-import twitter from "../../assets/img/twitter.png";
-import discord from "../../assets/img/discord.png";
-import reddit from "../../assets/img/reddit.png";
-import instagram from "../../assets/img/instagram.png";
-import tiktok from "../../assets/img/tiktok.png";
-import youtube from "../../assets/img/youtube.png";
-
-import marmoset from "../../assets/img/marmoset.png";
-import scratches from "../../assets/img/scratches.png";
-import bscratches from "../../assets/img/b-scratches.png";
-import bscscan from "../../assets/img/bscscan.png";
-import pancake from "../../assets/img/pancakeswap.png";
-import coingecko from "../../assets/img/coingecko.png";
-import coinmarketcap from "../../assets/img/coinmarketcap.png";
-import ambirewallet from "../../assets/img/ambire-wallet.png";
-import ambiread from "../../assets/img/ambire-ad.png";
-import logo from "../../assets/img/logo.png";
-import pancakeswap from "../../assets/img/pancake.png";
-import minScratches from "../../assets/img/min-scratches.png";
-import aax from "../../assets/img/aax.png";
-
-import crypto1 from "../../assets/img/crypto1.png";
-import crypto2 from "../../assets/img/crypto2.png";
-import crypto3 from "../../assets/img/crypto3.png";
-import crypto4 from "../../assets/img/crypto4.png";
-import crypto5 from "../../assets/img/crypto5.png";
-
-import icon1 from "../../assets/img/icon1.png";
-import icon2 from "../../assets/img/icon2.png";
-import icon3 from "../../assets/img/icon3.png";
-import icon4 from "../../assets/img/icon4.png";
-import tokenomic from "../../assets/img/tokenomics.svg";
-import paw from "../../assets/img/paw.png";
+import {
+  icon1,
+  icon2,
+  icon3,
+  icon4,
+  tokenomic,
+  paw,
+  telegram2,
+  crypto1,
+  crypto2,
+  crypto3,
+  crypto4,
+  crypto5,
+  pancakeswap,
+  minScratches,
+  aax,
+  logo,
+  twitter,
+  discord,
+  ambiread,
+  reddit,
+  instagram,
+  tiktok,
+  ambirewallet,
+  youtube,
+  marmoset,
+  scratches,
+  bscratches,
+  bscscan,
+  pancake,
+  coingecko,
+  coinmarketcap,
+} from "../../assets/img";
 
 import Slider from "../../components/Slider";
 

@@ -9,12 +9,14 @@ import { Input } from "../../components/Input";
 import { InputCell } from "../../components/InputCell";
 import axios from "axios";
 
-import rules from "../../assets/img/rules.png";
-import marmoset1 from "../../assets/img/marmoset1.png";
-import marmoset2 from "../../assets/img/marmoset2.png";
-import marmoset3 from "../../assets/img/marmoset3.png";
-import management from "../../assets/img/management.png";
-import share from "../../assets/img/share.png";
+import {
+  rules,
+  marmoset1,
+  marmoset2,
+  marmoset3,
+  management,
+  share,
+} from "../../assets/img";
 
 import scratches from "../../assets/img/scratches.png";
 

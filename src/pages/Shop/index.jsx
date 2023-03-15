@@ -4,10 +4,7 @@ import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import gif from "../../assets/video/gif1.mp4";
-import management from "../../assets/img/management.png";
-import info from "../../assets/img/information.png";
-import minus from "../../assets/img/minus.png";
-import plus from "../../assets/img/plus.png";
+import { management, info, minus, plus } from "../../assets/img";
 import { Link } from "react-router-dom";
 
 import i18n from "../../translate/i18n";
