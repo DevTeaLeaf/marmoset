@@ -1,9 +1,8 @@
-import React from "react";
-import arrow from "../../assets/img/arrow-back.png";
 import { Link } from "react-router-dom";
 
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
+
+import arrow from "../../assets/img/arrow-back.png";
 
 const Rules = ({ t }) => {
   return (

@@ -1,22 +1,20 @@
-import React, { useRef } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+import { ethers } from "ethers";
+import { useAccount } from "@web3modal/react";
+import { Link } from "react-router-dom";
+import { withNamespaces } from "react-i18next";
+
+import emailjs from "@emailjs/browser";
+
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 
 import gif from "../../assets/video/gif1.mp4";
 import { management, info, minus, plus } from "../../assets/img";
-import { Link } from "react-router-dom";
-
-import i18n from "../../translate/i18n";
-import { withNamespaces } from "react-i18next";
-
-import { ethers } from "ethers";
-import { useAccount } from "@web3modal/react";
 import lotteryABI from "../../web3/abi/lottery.json";
 import tokenABI from "../../web3/abi/token.json";
 import { LOTTERY, TOKEN, GAS } from "../../web3/constants.js";
-
-import emailjs from "@emailjs/browser";
 
 const Shop = ({ t }) => {
   const [price, setPrice] = useState(1);

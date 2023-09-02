@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export const Input = ({ innerRef, validate }) => {
   const [input, setInput] = useState("");

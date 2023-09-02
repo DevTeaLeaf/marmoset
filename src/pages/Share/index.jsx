@@ -1,5 +1,3 @@
-import React from "react";
-import closeModal from "../../assets/img/close_modal.png";
 import { Link } from "react-router-dom";
 
 import {
@@ -10,6 +8,8 @@ import {
   TelegramIcon,
   TwitterIcon,
 } from "react-share";
+
+import closeModal from "../../assets/img/close_modal.png";
 
 export const Share = () => {
   const shareUrl = "marmosettoken.com";

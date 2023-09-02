@@ -1,4 +1,3 @@
-import React from "react";
 export const InputCell = ({ number, turn, info }) => {
   let color = info ? (Number(number) === info[turn] ? "green" : "red") : "";
   return (

@@ -1,11 +1,9 @@
-import React from "react";
-import star from "../../assets/img/star.png";
-import { Shelf } from "./Shelf";
 import { Link } from "react-router-dom";
-
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
 
+import { Shelf } from "./Shelf";
+
+import star from "../../assets/img/star.png";
 const Cols = ({ t, data }) => {
   let [lotteryTime, myWon, wonNumbers, myNumbers] = [...data];
 

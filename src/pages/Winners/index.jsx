@@ -1,15 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import arrow from "../../assets/img/arrow-back.png";
-import { WinnerCol } from "../../components/WinnerCol";
+import { useState, useEffect } from "react";
 
+import { Link } from "react-router-dom";
 import { ethers } from "ethers";
 import { useAccount, useSigner } from "@web3modal/react";
-import { useState, useEffect } from "react";
+import { WinnerCol } from "../../components/WinnerCol";
 
 import lotteryABI from "../../web3/abi/lottery.json";
 import { LOTTERY } from "../../web3/constants.js";
 
+import arrow from "../../assets/img/arrow-back.png";
 export const Winners = () => {
   const [addr, setAddr] = useState([]);
   const [sum, setSum] = useState([]);
@@ -22,19 +21,19 @@ export const Winners = () => {
     names.sort((a, b) => temp[b] - temp[a]);
     prices.sort((a, b) => b - a);
 
-    let a = [];
+    let array = [];
     prices.forEach(async (e) => {
-      let s = await lotteryContract.getPriceInUSD(BigInt(e));
-      a.push(parseInt(s._hex, 16) / 10 ** 18);
+      const data = await lotteryContract.getPriceInUSD(BigInt(e));
+      array.push(parseInt(data._hex, 16) / 10 ** 18);
     });
     setTimeout(() => {
-      setSum(a);
+      setSum(array);
       setAddr(names);
     }, 1000);
   };
 
-  const { address, connectorAccount, isConnected } = useAccount();
-  const { data, error, isLoading, refetch } = useSigner();
+  const { isConnected } = useAccount();
+  const { data } = useSigner();
 
   let lotteryContract;
   let top20;
@@ -75,13 +74,10 @@ export const Winners = () => {
             </div>
           </div>
           <div className="flex justify-center items-center flex-col shrink">
-            {sum ? (
+            {sum &&
               sum.map((e, i) => {
                 return <WinnerCol address={addr[i]} win={e} key={i} />;
-              })
-            ) : (
-              <h1 className="text-[#fff]">ALERT СКА</h1>
-            )}
+              })}
           </div>
         </div>
       </div>

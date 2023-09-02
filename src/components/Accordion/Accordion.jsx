@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { AccordionItem } from "./AccordionItem";
 import "./index.css";
 
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
 
 const Accordion = ({ t }) => {

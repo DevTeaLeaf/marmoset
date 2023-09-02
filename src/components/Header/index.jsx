@@ -1,26 +1,21 @@
-import React from "react";
 import { useState } from "react";
-
-import logo from "../../assets/img/logo.png";
-import arrowDown from "../../assets/img/arrow-down.png";
-import wallet from "../../assets/img/wallet.png";
-
-import "./header.css";
-
 import { Link } from "react-router-dom";
+import { useAccount, useConnectModal } from "@web3modal/react";
 
-import LanguagesModal from "../LanguagesModal";
 import i18n from "../../translate/i18n";
 
-import { useAccount, useConnectModal } from "@web3modal/react";
 import { ScrollToTop } from "../ScrollToTop";
+import LanguagesModal from "../LanguagesModal";
+
+import "./header.css";
+import { logo, arrowDown, wallet } from "../../assets/img";
 
 export const Header = (props) => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [modalActive, setModalActive] = useState(false);
 
-  const { isOpen, open, close } = useConnectModal();
-  const { address, connectorAccount, isConnected } = useAccount();
+  const { open } = useConnectModal();
+  const { address } = useAccount();
   async function connect() {
     try {
       open();

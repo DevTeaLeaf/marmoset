@@ -43,6 +43,17 @@ import share from "./share.png";
 import info from "./information.png";
 import minus from "./minus.png";
 import plus from "./plus.png";
+
+import en from "./flags/en.png";
+import es from "./flags/es.png";
+import de from "./flags/de.png";
+import it from "./flags/it.png";
+import he from "./flags/he.png";
+import ru from "./flags/ru.png";
+import ro from "./flags/ro.png";
+import vi from "./flags/vi.png";
+import zh from "./flags/zh.png";
+
 export {
   info,
   minus,
@@ -84,4 +95,13 @@ export {
   pancake,
   coingecko,
   coinmarketcap,
+  en,
+  es,
+  de,
+  it,
+  he,
+  ru,
+  ro,
+  vi,
+  zh,
 };

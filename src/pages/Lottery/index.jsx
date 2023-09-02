@@ -1,5 +1,11 @@
-import React from "react";
 import { useState, createRef, useEffect } from "react";
+
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { withNamespaces } from "react-i18next";
+
+import { ethers } from "ethers";
+import { useAccount, useSigner } from "@web3modal/react";
 
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -7,7 +13,10 @@ import { Cell } from "../../components/Cell";
 import { Table } from "../../components/Table";
 import { Input } from "../../components/Input";
 import { InputCell } from "../../components/InputCell";
-import axios from "axios";
+
+import lotteryABI from "../../web3/abi/lottery.json";
+import tokenABI from "../../web3/abi/token.json";
+import { LOTTERY, TOKEN, GAS } from "../../web3/constants.js";
 
 import {
   rules,
@@ -16,21 +25,9 @@ import {
   marmoset3,
   management,
   share,
+  scratches,
 } from "../../assets/img";
 
-import scratches from "../../assets/img/scratches.png";
-
-import { Link } from "react-router-dom";
-
-import i18n from "../../translate/i18n";
-import { withNamespaces } from "react-i18next";
-
-import lotteryABI from "../../web3/abi/lottery.json";
-import tokenABI from "../../web3/abi/token.json";
-import { LOTTERY, TOKEN, GAS } from "../../web3/constants.js";
-
-import { ethers } from "ethers";
-import { useAccount, useSigner } from "@web3modal/react";
 const Lottery = ({ t }) => {
   const input1 = createRef();
   const input2 = createRef();
@@ -95,19 +92,21 @@ const Lottery = ({ t }) => {
     return [minutes, seconds];
   };
   ////web3
+
+  const { address, isConnected } = useAccount();
+  const { data } = useSigner();
+
   const [activeTable, setActiveTable] = useState(false);
   const [tableLen, setTableLen] = useState(0);
   const [played, setPlayed] = useState(false);
-  const { address, connectorAccount, isConnected } = useAccount();
-  const { data, error, isLoading, refetch } = useSigner();
-  let [tokenContract, setTokenContract] = useState(false);
+  const [tokenContract, setTokenContract] = useState(false);
   const [lotteryInfo, setLotteryInfo] = useState([
-    "asdas",
-    "ghfgh",
-    "dghdf",
-    "fgh",
-    "qwed",
-    "hegwe",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
   ]);
   const [jackpot, setJackpot] = useState("");
   const [lotteryContract, setLotteryContract] = useState(false);
@@ -284,17 +283,18 @@ const Lottery = ({ t }) => {
         console.log(error);
       });
   };
-  useEffect(() => {
-    if (!isBackendData) {
-      getBackendData();
-    }
-  }, []);
 
   useEffect(() => {
     if (isConnected) {
       initProvider();
     }
   }, [isConnected, address, data, played, lotteryContract, activeTable, time]);
+
+  useEffect(() => {
+    if (!isBackendData) {
+      getBackendData();
+    }
+  }, []);
   return (
     <>
       <Header />
@@ -416,13 +416,7 @@ const Lottery = ({ t }) => {
                 <div className="flex items-center justify-center md:justify-between flex-wrap md:flex-nowrap">
                   <div className="flex items-center md:mb-auto mb-[37px]">
                     <button
-                      onClick={
-                        isConnected && played
-                          ? null
-                          : isConnected
-                          ? buyTicket
-                          : null
-                      }
+                      onClick={isConnected && !played ? buyTicket : null}
                       className={`${
                         buy ? "button-design-buy" : "button-design-null"
                       } md:mr-auto mr-[9px]`}
@@ -430,13 +424,7 @@ const Lottery = ({ t }) => {
                       <p>{t("lottery_buy")}</p>
                     </button>
                     <button
-                      onClick={
-                        isConnected && played
-                          ? null
-                          : isConnected
-                          ? reset
-                          : null
-                      }
+                      onClick={isConnected && !played ? reset : null}
                       className="bg-[#FF1791] rounded-[8px] block md:hidden"
                     >
                       <p className="poppins font-bold text-[generateRandom16px] leading-6 py-[8.5px] px-[21.5px] text-[#fff]">
@@ -445,21 +433,13 @@ const Lottery = ({ t }) => {
                     </button>
                   </div>
                   <button
-                    onClick={
-                      isConnected && played
-                        ? null
-                        : isConnected
-                        ? generateRandom
-                        : null
-                    }
+                    onClick={isConnected && !played ? generateRandom : null}
                     className="button-design"
                   >
                     <p>{t("lottery_generate")}</p>
                   </button>
                   <button
-                    onClick={
-                      isConnected && played ? null : isConnected ? reset : null
-                    }
+                    onClick={isConnected && !played ? reset : null}
                     className="bg-[#FF1791] rounded-[8px] hidden md:block"
                   >
                     <p className="poppins font-bold text-[16px] leading-6 py-[8.5px] px-[21.5px] text-[#fff]">

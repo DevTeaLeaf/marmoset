@@ -1,9 +1,11 @@
+import { withNamespaces } from "react-i18next";
+import { Link } from "react-router-dom";
+
 import { Header } from "../../components/Header";
 import Footer from "../../components/Footer";
 import Accordion from "../../components/Accordion/Accordion";
 import Copy from "../../components/Copy";
-import { Link } from "react-router-dom";
-import React from "react";
+import Slider from "../../components/Slider";
 
 import {
   icon1,
@@ -39,12 +41,7 @@ import {
   coinmarketcap,
 } from "../../assets/img";
 
-import Slider from "../../components/Slider";
-
 import check from "../../assets/img/check.png";
-
-import i18n from "../../translate/i18n";
-import { withNamespaces } from "react-i18next";
 
 const Home = ({ t }) => {
   return (

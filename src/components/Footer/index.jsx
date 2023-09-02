@@ -1,8 +1,6 @@
-import React from "react";
-import Copy from "../Copy";
-
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
+
+import Copy from "../Copy";
 
 const Footer = ({ t }) => {
   return (

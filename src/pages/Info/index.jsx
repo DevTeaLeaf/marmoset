@@ -1,9 +1,8 @@
-import React from "react";
-import closeModal from "../../assets/img/close_modal.png";
 import { Link } from "react-router-dom";
 
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
+
+import closeModal from "../../assets/img/close_modal.png";
 
 const Info = ({ t }) => {
   return (

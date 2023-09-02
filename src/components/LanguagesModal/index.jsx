@@ -1,16 +1,7 @@
-import React from "react";
-import en from "../../assets/img/flags/en.png";
-import es from "../../assets/img/flags/es.png";
-import de from "../../assets/img/flags/de.png";
-import it from "../../assets/img/flags/it.png";
-import he from "../../assets/img/flags/he.png";
-import ru from "../../assets/img/flags/ru.png";
-import ro from "../../assets/img/flags/ro.png";
-import vi from "../../assets/img/flags/vi.png";
-import zh from "../../assets/img/flags/zh.png";
-
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
+import i18n from "../../translate/i18n";
+
+import { en, es, de, it, he, ru, ro, vi, zh } from "../../assets/img";
 
 const LanguagesModal = ({ active, setActive }) => {
   const changeLanguage = (lng) => {

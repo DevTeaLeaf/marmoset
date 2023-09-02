@@ -1,8 +1,6 @@
-import React from "react";
-import copy from "../../assets/img/copy.png";
-
-import i18n from "../../translate/i18n";
 import { withNamespaces } from "react-i18next";
+
+import copy from "../../assets/img/copy.png";
 
 const Copy = ({ value, idx, t }) => {
   const copyHandler = () => {
